@@ -31,10 +31,12 @@ final class NotificationManager {
     func scheduleAlarmNotification(at date: Date) {
         let content = UNMutableNotificationContent()
         content.title = "Custom Alarm"
+        content.subtitle = "Subtitle"
         content.body = "It's time for your custom alarm!"
         content.sound = UNNotificationSound.default
         
-        let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: date)
+        
+        let triggerDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)

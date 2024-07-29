@@ -24,6 +24,7 @@
 		577773412C57ADE1002D7370 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 577773402C57ADE1002D7370 /* Assets.xcassets */; };
 		577773452C57ADE1002D7370 /* LiveActivityWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 577773332C57ADE0002D7370 /* LiveActivityWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777733C2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift */; };
+		5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777734B2C57C0C1002D7370 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		5777733C2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityWidgetLiveActivity.swift; sourceTree = "<group>"; };
 		577773402C57ADE1002D7370 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		577773422C57ADE1002D7370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5777734B2C57C0C1002D7370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				571D38FB2C57A69600CA22E4 /* _GERSApp.swift */,
+				5777734B2C57C0C1002D7370 /* AppDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				571D39142C57AA6F00CA22E4 /* CustomIntents.swift in Sources */,
 				571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */,
 				571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */,
+				5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */,
 				571D391E2C57AAD000CA22E4 /* model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
