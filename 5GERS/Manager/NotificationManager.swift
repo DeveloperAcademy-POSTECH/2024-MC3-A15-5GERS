@@ -36,7 +36,7 @@ final class NotificationManager {
         content.sound = UNNotificationSound.default
         
         
-        let triggerDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
+        let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)

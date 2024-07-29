@@ -6,3 +6,18 @@
 //
 
 import Foundation
+import AppIntents
+
+struct CustomShortcuts: AppShortcutsProvider {
+    
+    static var appShortcuts: [AppShortcut] {
+        AppShortcut(
+            intent: TimeIntent(),
+            phrases: [
+                "\(.applicationName) 남은 시간 알려줘"
+            ],
+            shortTitle: "남은시간",
+            systemImageName: "heart"
+        )
+    }
+}
