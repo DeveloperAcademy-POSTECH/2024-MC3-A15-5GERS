@@ -11,7 +11,7 @@ import SwiftUI
 struct _GERSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
