@@ -17,7 +17,7 @@ struct TimeIntent: AppIntent {
         let data = UserDefaultsManager.shared.getOutingData()
         
         if data.time > .now {
-            return .result(dialog: "남은시간 \(data.time.remainingTimeFromNow)", view: HomeView())
+            return .result(dialog: "남은시간 \(data.time.remainingTimeFromNow)")
         } else {
             return .result(dialog: "예정된 외출이 없습니다")
         }

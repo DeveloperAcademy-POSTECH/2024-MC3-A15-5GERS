@@ -29,7 +29,7 @@ final class UserDefaultsManager {
             }
         }
         
-        return Outing(time: .now, products: [])
+        return Outing(time: .now.addingTimeInterval(-1), products: [])
     }
     
     func removeOutingData() {

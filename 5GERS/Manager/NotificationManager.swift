@@ -28,12 +28,14 @@ final class NotificationManager {
             }
     }
     
+    // TODO: Notification Content를 매개변수로 전달받아 처리
     func scheduleAlarmNotification(at date: Date) {
         let content = UNMutableNotificationContent()
         content.title = "Custom Alarm"
         content.subtitle = "Subtitle"
         content.body = "It's time for your custom alarm!"
         content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "Test"
         
         
         let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: date)
@@ -46,6 +48,9 @@ final class NotificationManager {
                 print("Error adding notification: \(error.localizedDescription)")
             }
         }
-        
+    }
+    
+    func removeAllAlarmNotification() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }
