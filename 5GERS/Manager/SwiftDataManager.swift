@@ -10,6 +10,8 @@ import SwiftData
 
 enum SwiftDataError: Error {
     case fetchError
+    case deleteError
+    case notFound
 }
 
 final class SwiftDataManager {
@@ -26,6 +28,20 @@ final class SwiftDataManager {
             fatalError(error.localizedDescription)
         }
     }()
+    
+    private func findSwiftData(_ data: Outing) -> Result<OutingSD, SwiftDataError> {
+        let time = data.time
+        let predicate = #Predicate<OutingSD> { $0.time == time }
+        let descriptor = FetchDescriptor(predicate: predicate)
+        
+        do {
+            let swiftDatas = try modelContext.fetch(descriptor)
+            guard let swiftData = swiftDatas.first else { return .failure(.notFound) }
+            return .success(swiftData)
+        } catch {
+            return .failure(.notFound)
+        }
+    }
     
     func create(_ data: Outing) {
         let swiftData = OutingSD(time: data.time, products: data.products)
@@ -44,5 +60,15 @@ final class SwiftDataManager {
             return .failure(.fetchError)
         }
         
+    }
+    
+    func delete(_ data: Outing) throws {
+        let result = findSwiftData(data)
+        switch result {
+        case .success(let data):
+            modelContext.delete(data)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
     }
 }

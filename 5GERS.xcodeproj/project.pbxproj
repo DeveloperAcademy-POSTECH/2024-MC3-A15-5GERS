@@ -31,6 +31,9 @@
 		577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773552C587F95002D7370 /* Outing+SwiftData.swift */; };
 		577773582C587FF9002D7370 /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773572C587FF9002D7370 /* SwiftDataManager.swift */; };
 		5777735C2C58C548002D7370 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777735B2C58C548002D7370 /* HomeView.swift */; };
+		5777735E2C59103E002D7370 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777735D2C59103E002D7370 /* SettingView.swift */; };
+		577773602C591044002D7370 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777735F2C591044002D7370 /* TimerView.swift */; };
+		577773642C591074002D7370 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773632C591074002D7370 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +86,9 @@
 		577773552C587F95002D7370 /* Outing+SwiftData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Outing+SwiftData.swift"; sourceTree = "<group>"; };
 		577773572C587FF9002D7370 /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
 		5777735B2C58C548002D7370 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5777735D2C59103E002D7370 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		5777735F2C591044002D7370 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		577773632C591074002D7370 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +137,7 @@
 				571D390C2C57A9A400CA22E4 /* Core */,
 				571D39172C57AA9900CA22E4 /* Manager */,
 				571D391C2C57AABD00CA22E4 /* Model */,
-				571D390B2C57A95C00CA22E4 /* View */,
+				571D390B2C57A95C00CA22E4 /* Feature */,
 				571D390A2C57A95200CA22E4 /* Resource */,
 				571D39012C57A69800CA22E4 /* Preview Content */,
 			);
@@ -163,13 +169,16 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		571D390B2C57A95C00CA22E4 /* View */ = {
+		571D390B2C57A95C00CA22E4 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
 				571D38FD2C57A69600CA22E4 /* TestHomeView.swift */,
 				5777735B2C58C548002D7370 /* HomeView.swift */,
+				5777735F2C591044002D7370 /* TimerView.swift */,
+				5777735D2C59103E002D7370 /* SettingView.swift */,
+				577773632C591074002D7370 /* HomeViewModel.swift */,
 			);
-			path = View;
+			path = Feature;
 			sourceTree = "<group>";
 		};
 		571D390C2C57A9A400CA22E4 /* Core */ = {
@@ -357,6 +366,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				577773642C591074002D7370 /* HomeViewModel.swift in Sources */,
+				577773602C591044002D7370 /* TimerView.swift in Sources */,
 				571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */,
 				5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
 				577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */,
@@ -366,6 +377,7 @@
 				577773582C587FF9002D7370 /* SwiftDataManager.swift in Sources */,
 				571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */,
 				571D38FE2C57A69600CA22E4 /* TestHomeView.swift in Sources */,
+				5777735E2C59103E002D7370 /* SettingView.swift in Sources */,
 				571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */,
 				571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */,
 				571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */,

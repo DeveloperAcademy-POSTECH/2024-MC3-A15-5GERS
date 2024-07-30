@@ -60,7 +60,7 @@ extension Date {
     }
     
     // 현재보다 이후의 날짜인지 확인
-    func isAfterToday() -> Bool {
+    var isAfterToday: Bool {
         self > .now ? true : false
     }
     

@@ -13,20 +13,12 @@ import UserNotifications
 struct _GERSApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
-    private let modelContainer: ModelContainer = {
-        let schema = Schema([OutingSD.self])
-        let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
-        do {
-            return try ModelContainer(for: schema, configurations: [configuration])
-        } catch {
-            fatalError(error.localizedDescription)
-        }
-    }()
+    @State private var homeViewModel = HomeViewModel()
     
     var body: some Scene {
         WindowGroup {
-            TestHomeView()
-                .modelContainer(modelContainer)
+            HomeView()
+                .environment(homeViewModel)
         }
     }
 }
