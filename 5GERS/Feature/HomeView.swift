@@ -11,12 +11,10 @@ struct HomeView: View {
     @Environment(HomeViewModel.self) private var homeViewModel
     
     var body: some View {
-        ZStack {
-            if homeViewModel.outing.time.isAfterToday {
-                TimerView()
-            } else {
-                SettingView()
-            }
+        if homeViewModel.outing.time.isAfterToday {
+            TimerView()
+        } else {
+            SettingView()
         }
     }
 }
