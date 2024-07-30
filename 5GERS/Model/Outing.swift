@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct Outing: Codable {
+    var time: Date
+    var products: [String]
+}

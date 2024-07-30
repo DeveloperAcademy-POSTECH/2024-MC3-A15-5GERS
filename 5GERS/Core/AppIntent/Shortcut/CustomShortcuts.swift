@@ -19,5 +19,14 @@ struct CustomShortcuts: AppShortcutsProvider {
             shortTitle: "남은시간",
             systemImageName: "heart"
         )
+        
+        AppShortcut(
+            intent: ProductsIntent(),
+            phrases: [
+                "\(.applicationName) 챙길 물건 알려줘"
+            ],
+            shortTitle: "챙길물건",
+            systemImageName: "heart"
+        )
     }
 }

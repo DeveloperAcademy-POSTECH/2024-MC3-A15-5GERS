@@ -12,11 +12,11 @@
 		571D39002C57A69800CA22E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
 		571D39032C57A69800CA22E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D39022C57A69800CA22E4 /* Preview Assets.xcassets */; };
 		571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */; };
-		571D39142C57AA6F00CA22E4 /* CustomIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D39132C57AA6F00CA22E4 /* CustomIntents.swift */; };
+		571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D39132C57AA6F00CA22E4 /* TimeIntent.swift */; };
 		571D39162C57AA8300CA22E4 /* CustomShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D39152C57AA8300CA22E4 /* CustomShortcuts.swift */; };
 		571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D39182C57AAAA00CA22E4 /* NotificationManager.swift */; };
 		571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */; };
-		571D391E2C57AAD000CA22E4 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* model.swift */; };
+		571D391E2C57AAD000CA22E4 /* Outing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* Outing.swift */; };
 		577773362C57ADE0002D7370 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577773352C57ADE0002D7370 /* WidgetKit.framework */; };
 		577773382C57ADE0002D7370 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577773372C57ADE0002D7370 /* SwiftUI.framework */; };
 		5777733B2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777733A2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift */; };
@@ -25,6 +25,9 @@
 		577773452C57ADE1002D7370 /* LiveActivityWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 577773332C57ADE0002D7370 /* LiveActivityWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777733C2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift */; };
 		5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777734B2C57C0C1002D7370 /* AppDelegate.swift */; };
+		577773502C57D8EC002D7370 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */; };
+		577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773512C5878F5002D7370 /* UserDefaultsManager.swift */; };
+		577773542C587BB6002D7370 /* ProductsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773532C587BB6002D7370 /* ProductsIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,11 +61,11 @@
 		571D38FF2C57A69800CA22E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		571D39022C57A69800CA22E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
-		571D39132C57AA6F00CA22E4 /* CustomIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntents.swift; sourceTree = "<group>"; };
+		571D39132C57AA6F00CA22E4 /* TimeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntent.swift; sourceTree = "<group>"; };
 		571D39152C57AA8300CA22E4 /* CustomShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShortcuts.swift; sourceTree = "<group>"; };
 		571D39182C57AAAA00CA22E4 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
-		571D391D2C57AAD000CA22E4 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		571D391D2C57AAD000CA22E4 /* Outing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outing.swift; sourceTree = "<group>"; };
 		577773332C57ADE0002D7370 /* LiveActivityWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiveActivityWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		577773352C57ADE0002D7370 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		577773372C57ADE0002D7370 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -71,6 +74,9 @@
 		577773402C57ADE1002D7370 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		577773422C57ADE1002D7370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5777734B2C57C0C1002D7370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
+		577773512C5878F5002D7370 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		577773532C587BB6002D7370 /* ProductsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */,
+				5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -188,7 +195,8 @@
 		571D39112C57AA2D00CA22E4 /* Intent */ = {
 			isa = PBXGroup;
 			children = (
-				571D39132C57AA6F00CA22E4 /* CustomIntents.swift */,
+				571D39132C57AA6F00CA22E4 /* TimeIntent.swift */,
+				577773532C587BB6002D7370 /* ProductsIntent.swift */,
 			);
 			path = Intent;
 			sourceTree = "<group>";
@@ -206,6 +214,7 @@
 			children = (
 				571D39182C57AAAA00CA22E4 /* NotificationManager.swift */,
 				571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */,
+				577773512C5878F5002D7370 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -213,7 +222,7 @@
 		571D391C2C57AABD00CA22E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				571D391D2C57AAD000CA22E4 /* model.swift */,
+				571D391D2C57AAD000CA22E4 /* Outing.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -341,14 +350,17 @@
 			files = (
 				571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */,
 				5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
+				577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */,
+				577773502C57D8EC002D7370 /* DateComponents+Ext.swift in Sources */,
 				571D39162C57AA8300CA22E4 /* CustomShortcuts.swift in Sources */,
 				571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */,
 				571D38FE2C57A69600CA22E4 /* HomeView.swift in Sources */,
-				571D39142C57AA6F00CA22E4 /* CustomIntents.swift in Sources */,
+				571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */,
 				571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */,
 				571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */,
 				5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */,
-				571D391E2C57AAD000CA22E4 /* model.swift in Sources */,
+				571D391E2C57AAD000CA22E4 /* Outing.swift in Sources */,
+				577773542C587BB6002D7370 /* ProductsIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

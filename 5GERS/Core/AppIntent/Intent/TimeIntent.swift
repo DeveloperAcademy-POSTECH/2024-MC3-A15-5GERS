@@ -14,7 +14,12 @@ struct TimeIntent: AppIntent {
     
     func perform() async throws -> some IntentResult & ProvidesDialog & ShowsSnippetView {
         
+        let data = UserDefaultsManager.shared.getOutingData()
         
-        return .result(dialog: "남은시간 \(Date().description)", view: HomeView())
+        if data.time > .now {
+            return .result(dialog: "남은시간 \(data.time.remainingTimeFromNow)", view: HomeView())
+        } else {
+            return .result(dialog: "예정된 외출이 없습니다")
+        }
     }
 }
