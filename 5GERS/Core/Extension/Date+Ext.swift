@@ -26,4 +26,8 @@ extension Date {
             return "\(remain / 3600)시간 \(remain / 60 % 60)분"
         }
     }
+    
+    func isAfterToday() -> Bool {
+        self > .now ? true : false
+    }
 }

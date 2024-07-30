@@ -31,4 +31,8 @@ final class UserDefaultsManager {
         
         return Outing(time: .now, products: [])
     }
+    
+    func removeOutingData() {
+        userDefaults.removeObject(forKey: outingKey)
+    }
 }
