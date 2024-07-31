@@ -14,11 +14,11 @@ final class HomeViewModel {
     // Common
     var outing: Outing = .init(time: .now, products: [])
     
-    // Init View
+    // Setting View
     var date: Date = .now
     var products: [String] = []
     
-    // Main View
+    // Timer View
     
     private let userDefaultsManager = UserDefaultsManager.shared
     private let notificationManager = NotificationManager.shared
