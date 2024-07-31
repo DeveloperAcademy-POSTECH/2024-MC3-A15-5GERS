@@ -12,11 +12,20 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            if homeViewModel.outing.time.isAfterToday {
-                TimerView()
-            } else {
-                SettingView()
+            ZStack {
+                LinearGradient.background.ignoresSafeArea()
+                
+                if homeViewModel.outing.time.isAfterToday {
+                    TimerView()
+                } else {
+                    SettingView()
+                }
+                
+                if homeViewModel.isPresentedProductsView {
+                    ProductsEditView(viewModel: homeViewModel)
+                }
             }
+            
         }
     }
 }

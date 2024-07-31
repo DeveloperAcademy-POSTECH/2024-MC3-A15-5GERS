@@ -13,9 +13,7 @@ struct TimerView: View {
     @Environment(HomeViewModel.self) private var viewModel
     
     var body: some View {
-        ZStack {
-            LinearGradient.background.ignoresSafeArea()
-            
+        
             VStack {
                 HStack {
                     Text("외출 준비 중")
@@ -55,6 +53,9 @@ struct TimerView: View {
                 .padding(.horizontal, 14)
                 .background(AppColor.gray1)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
+                .onTapGesture {
+                    viewModel.isPresentedProductsView = true
+                }
                 
                 Spacer().frame(height: 28)
                 
@@ -84,23 +85,22 @@ struct TimerView: View {
                 Spacer().frame(height: 79)
             }
             .padding(.horizontal, 24)
-        }
-        .toolbar(content: {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button(
-                        action: {
-                            print("Delete")
-                        }, label: {
-                            Label("Delete", systemImage: "trash")
-                                .foregroundStyle(AppColor.red)
-                    })
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(AppColor.black)
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button(
+                            action: {
+                                print("Delete")
+                            }, label: {
+                                Label("Delete", systemImage: "trash")
+                                    .foregroundStyle(AppColor.red)
+                        })
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(AppColor.black)
+                    }
                 }
-            }
-        })
+            })
     }
 }
 
