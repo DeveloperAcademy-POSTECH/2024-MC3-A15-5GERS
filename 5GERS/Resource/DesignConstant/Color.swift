@@ -16,6 +16,7 @@ struct AppColor {
     static let gray2 = Color(.gray2)
     static let gray3 = Color(.gray3)
     static let gray4 = Color(.gray4)
+    static let gray5 = Color(.gray5)
     static let white1 = Color(.white1)
     static let white2 = Color(.white2)
 }

@@ -46,6 +46,7 @@
 		577773792C59272D002D7370 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 577773702C59272D002D7370 /* Pretendard-Medium.otf */; };
 		5777737C2C5927E3002D7370 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777737B2C5927E3002D7370 /* Font.swift */; };
 		5777737F2C5929B1002D7370 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777737E2C5929B1002D7370 /* Color.swift */; };
+		577773832C5A5957002D7370 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773822C5A5957002D7370 /* Array+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		5777737A2C59274C002D7370 /* -GERS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "-GERS-Info.plist"; path = "5GERS/App/-GERS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5777737B2C5927E3002D7370 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5777737E2C5929B1002D7370 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		577773822C5A5957002D7370 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			children = (
 				571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */,
 				5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */,
+				577773822C5A5957002D7370 /* Array+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */,
 				571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */,
 				571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */,
+				577773832C5A5957002D7370 /* Array+Ext.swift in Sources */,
 				5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */,
 				5777735C2C58C548002D7370 /* HomeView.swift in Sources */,
 				571D391E2C57AAD000CA22E4 /* Outing.swift in Sources */,

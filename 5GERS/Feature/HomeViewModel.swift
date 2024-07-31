@@ -17,9 +17,11 @@ final class HomeViewModel {
     // Setting View
     var date: Date = .now
     var products: [TextFieldItem] = []
-    var isPresented: Bool = false
+    var isPresentedProductsView: Bool = false
+    var isPresentedOutingList: Bool = false
     
     // Timer View
+    var timer: Timer?
     
     private let userDefaultsManager = UserDefaultsManager.shared
     private let notificationManager = NotificationManager.shared
@@ -31,6 +33,8 @@ final class HomeViewModel {
     }
 }
 
+
+// MARK: - ProductsView
 extension HomeViewModel {
     func saveProductsButtonTapped() {
         // TODO: SettingView, TimerView에 따른 time 매개변수에 전달할 값 지정
@@ -39,6 +43,11 @@ extension HomeViewModel {
         userDefaultsManager.setOutingData(new)
         
         self.outing = userDefaultsManager.getOutingData()
+        
+        // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
+        notificationManager.scheduleAlarmNotification(at: date.addingTimeInterval(-60))
+        // TODO: 외출시간에 알림
+        notificationManager.scheduleAlarmNotification(at: date)
     }
     
     func addProductButtonTapped() {

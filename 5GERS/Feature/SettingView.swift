@@ -12,7 +12,7 @@ struct SettingView: View {
     
     var body: some View {
         @Bindable var viewModel = homeViewModel
-        NavigationStack {
+        
             ZStack {
                 LinearGradient.background.ignoresSafeArea()
                 
@@ -38,11 +38,16 @@ struct SettingView: View {
                         displayedComponents: .hourAndMinute
                     )
                     .datePickerStyle(.wheel)
+                    .labelsHidden()
+                    
                     
                     Spacer()
                     
                     Button(action: {
-                        viewModel.isPresented = true
+                        withAnimation {
+                            viewModel.isPresentedProductsView = true
+                        }
+                        
                     }, label: {
                         HStack {
                             Spacer()
@@ -54,10 +59,10 @@ struct SettingView: View {
                         }
                         .font(AppFont.body2)
                     })
-                    .padding(.horizontal, 10)
                     .padding(.vertical, 14)
                     .background(AppColor.white1)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding(.horizontal, 20)
                     .shadow(
                         color: .black.opacity(0.15),
                         radius: 20,
@@ -68,7 +73,7 @@ struct SettingView: View {
                     Spacer().frame(height: 79)
                 }
                 
-                if viewModel.isPresented {
+                if viewModel.isPresentedProductsView {
                     ProductsInputView(viewModel: homeViewModel)
                 }
             }
@@ -78,11 +83,12 @@ struct SettingView: View {
                         Text("test")
                     } label: {
                         Image(systemName: "clock.arrow.circlepath")
+                            .foregroundStyle(.black)
                     }
 
                 }
             })
-        }
+        
         
     }
 }
@@ -98,6 +104,11 @@ struct ProductsInputView: View {
     var body: some View {
         ZStack {
             AppColor.black.opacity(0.5).ignoresSafeArea()
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.isPresentedProductsView = false
+                    }
+                }
             
             HStack {
                 Spacer().frame(width: 46)
@@ -142,7 +153,10 @@ struct ProductsInputView: View {
                     .padding(.horizontal, 20)
                     
                     VStack {
-                        ForEach(Array($viewModel.products.enumerated()), id: \.element.id) { idx, product in
+                        ForEach(
+                            Array($viewModel.products.enumerated()),
+                            id: \.element.id
+                        ) { idx, product in
                             HStack {
                                 TextField("", text: product.text)
                                     .focused($focusedField, equals: idx)
