@@ -23,7 +23,7 @@ struct SettingView: View {
                     
                     Spacer().frame(height: 56)
                     
-                    Text(homeViewModel.date.timeFormat.koreanFormat)
+                    Text(homeViewModel.outing.time.timeFormat.koreanDate)
                         .foregroundStyle(AppColor.gray3)
                         .font(AppFont.body3)
                     
@@ -31,7 +31,7 @@ struct SettingView: View {
                     
                     DatePicker(
                         "", 
-                        selection: $viewModel.date,
+                        selection: $viewModel.outing.time,
                         displayedComponents: .hourAndMinute
                     )
                     .datePickerStyle(.wheel)
@@ -80,20 +80,11 @@ struct SettingView: View {
 
                     }
                 })
-                
-                
-            
-            
-        
-        
     }
 }
 
 
-struct TextFieldItem: Identifiable {
-    let id = UUID()
-    var text: String
-}
+
 
 #Preview {
     SettingView()

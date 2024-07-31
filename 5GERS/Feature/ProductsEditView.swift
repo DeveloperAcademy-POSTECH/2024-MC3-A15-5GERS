@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 
 
+struct TextFieldItem: Identifiable {
+    let id = UUID()
+    var text: String
+}
+
 struct ProductsEditView: View {
     @Bindable private var viewModel: HomeViewModel
     @FocusState private var focusedField: Int?
@@ -52,7 +57,7 @@ struct ProductsEditView: View {
                         action: {
                             viewModel.addProductButtonTapped()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                focusedField = viewModel.products.isEmpty ? nil : 0
+                                focusedField = 0
                             }
                             
                         },
@@ -98,6 +103,7 @@ struct ProductsEditView: View {
                     
                     Spacer()
                 }
+                // TODO: 높이 크기 조정
                 .frame(height: 450)
                 .background(AppColor.white1)
                 .clipShape(RoundedRectangle(cornerRadius: 15))

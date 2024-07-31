@@ -12,27 +12,29 @@ final class UserDefaultsManager {
     
     private let userDefaults = UserDefaults.standard
     
-    let outingKey = "outing"
-    
     private init() {}
+    
+    func setIsTodayAfter(_ bool: Bool) {
+        userDefaults.setValue(bool, forKey: UserDefaultsKey.isTodayAfter)
+    }
     
     func setOutingData(_ data: Outing) {
         if let encodedData = try? JSONEncoder().encode(data) {
-            userDefaults.set(encodedData, forKey: outingKey)
+            userDefaults.set(encodedData, forKey: UserDefaultsKey.outing)
         }
     }
     
     func getOutingData() -> Outing {
-        if let data = userDefaults.data(forKey: outingKey) {
+        if let data = userDefaults.data(forKey: UserDefaultsKey.outing) {
             if let decodedData = try? JSONDecoder().decode(Outing.self, from: data) {
                 return decodedData
             }
         }
         
-        return Outing(time: .now.addingTimeInterval(-1), products: [])
+        return Outing(time: .now, products: [])
     }
     
     func removeOutingData() {
-        userDefaults.removeObject(forKey: outingKey)
+        userDefaults.removeObject(forKey: UserDefaultsKey.outing)
     }
 }

@@ -15,13 +15,13 @@ final class HomeViewModel {
     var outing: Outing = .init(time: .now, products: [])
     
     // Setting View
-    var date: Date = .now
     var products: [TextFieldItem] = []
     var isPresentedProductsView: Bool = false
     var isPresentedOutingList: Bool = false
     
     // Timer View
     var timer: Timer?
+    var isActiveLiveActivity: Bool = false
     
     private let userDefaultsManager = UserDefaultsManager.shared
     private let notificationManager = NotificationManager.shared
@@ -29,7 +29,13 @@ final class HomeViewModel {
     private let liveActivityManager = LiveActivityManager.shared
     
     init() {
+        self.initialData()
+    }
+    
+    private func initialData() {
         self.outing = userDefaultsManager.getOutingData()
+        
+        outing.products.forEach { products.append(TextFieldItem(text: $0)) }
     }
 }
 
@@ -37,17 +43,19 @@ final class HomeViewModel {
 // MARK: - ProductsView
 extension HomeViewModel {
     func saveProductsButtonTapped() {
-        // TODO: SettingView, TimerView에 따른 time 매개변수에 전달할 값 지정
+        userDefaultsManager.setIsTodayAfter(true)
+        outing.products = products.map { $0.text }
+        
         // TODO: products에 빈 문자열이 없는 것만 추가
-        let new = Outing(time: date, products: products.map { $0.text })
-        userDefaultsManager.setOutingData(new)
+        outing.time = outing.time.timeFormat
+        userDefaultsManager.setOutingData(outing)
         
         self.outing = userDefaultsManager.getOutingData()
         
         // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
-        notificationManager.scheduleAlarmNotification(at: date.addingTimeInterval(-60))
+        notificationManager.scheduleAlarmNotification(at: outing.time.addingTimeInterval(-60))
         // TODO: 외출시간에 알림
-        notificationManager.scheduleAlarmNotification(at: date)
+        notificationManager.scheduleAlarmNotification(at: outing.time)
     }
     
     func addProductButtonTapped() {
@@ -56,5 +64,28 @@ extension HomeViewModel {
     
     func deleteProductButtonTapped(at index: Int) {
         self.products.remove(at: index)
+    }
+}
+
+// MARK: - HomeViewModel
+extension HomeViewModel {
+    func deleteOutingButtonTapped() {
+        userDefaultsManager.removeOutingData()
+        userDefaultsManager.setIsTodayAfter(false)
+        notificationManager.removeAllAlarmNotification()
+        Task { await liveActivityManager.endActivity() }
+        initialData()
+    }
+    
+    func liveActivityButtonTapped() {
+        let isActive = liveActivityManager.isActivateActivity()
+        
+        if isActive {
+            deleteOutingButtonTapped()
+        } else {
+            try? liveActivityManager.startActivity(outing.time)
+        }
+        
+        isActiveLiveActivity = !isActive
     }
 }

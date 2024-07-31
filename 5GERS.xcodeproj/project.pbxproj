@@ -211,8 +211,8 @@
 				5777735B2C58C548002D7370 /* HomeView.swift */,
 				5777735D2C59103E002D7370 /* SettingView.swift */,
 				5777735F2C591044002D7370 /* TimerView.swift */,
-				577773632C591074002D7370 /* HomeViewModel.swift */,
 				577773872C5A64C5002D7370 /* ProductsEditView.swift */,
+				577773632C591074002D7370 /* HomeViewModel.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";

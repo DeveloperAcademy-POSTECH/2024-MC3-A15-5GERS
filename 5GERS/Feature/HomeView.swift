@@ -9,13 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(HomeViewModel.self) private var homeViewModel
+    @AppStorage(UserDefaultsKey.isTodayAfter) private var isAfterToday: Bool = false
     
     var body: some View {
         NavigationStack {
             ZStack {
                 LinearGradient.background.ignoresSafeArea()
                 
-                if homeViewModel.outing.time.isAfterToday {
+                if isAfterToday {
                     TimerView()
                 } else {
                     SettingView()
