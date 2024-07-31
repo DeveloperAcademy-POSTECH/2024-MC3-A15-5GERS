@@ -16,7 +16,8 @@ final class HomeViewModel {
     
     // Setting View
     var date: Date = .now
-    var products: [String] = []
+    var products: [TextFieldItem] = []
+    var isPresented: Bool = false
     
     // Timer View
     
@@ -31,5 +32,20 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel {
+    func saveProductsButtonTapped() {
+        // TODO: SettingView, TimerView에 따른 time 매개변수에 전달할 값 지정
+        // TODO: products에 빈 문자열이 없는 것만 추가
+        let new = Outing(time: date, products: products.map { $0.text })
+        userDefaultsManager.setOutingData(new)
+        
+        self.outing = userDefaultsManager.getOutingData()
+    }
     
+    func addProductButtonTapped() {
+        self.products.insert(.init(text: ""), at: 0)
+    }
+    
+    func deleteProductButtonTapped(at index: Int) {
+        self.products.remove(at: index)
+    }
 }
