@@ -20,8 +20,8 @@ final class HomeViewModel {
     var isPresentedOutingList: Bool = false
     
     // Timer View
-    var timer: Timer?
     var isActiveLiveActivity: Bool = false
+    var remainingTimeValue: Int = 0
     
     private let userDefaultsManager = UserDefaultsManager.shared
     private let notificationManager = NotificationManager.shared
@@ -42,46 +42,42 @@ final class HomeViewModel {
 
 // MARK: - ProductsView
 extension HomeViewModel {
-    func saveProductsButtonTapped() {
-        userDefaultsManager.setIsTodayAfter(true)
-        outing.products = products.map { $0.text }
-        
+    func saveProductsButtonTapped(isInitialMode: Bool) {
+        self.userDefaultsManager.setIsTodayAfter(true)
         // TODO: products에 빈 문자열이 없는 것만 추가
-        outing.time = outing.time.timeFormat
-        userDefaultsManager.setOutingData(outing)
+        self.outing.products = self.products.map { $0.text }
         
-//        print(outing.time)
-//        print(outing.time.addingTimeInterval(-60))
-//        print(outing.time.remainingTimeFromNow)
+        self.outing.time = self.outing.time.timeFormat
+        self.userDefaultsManager.setOutingData(self.outing)
         
         self.outing = userDefaultsManager.getOutingData()
         
-        for timeInterval in [60, 120, 180] {
-            // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
-            notificationManager.scheduleAlarmNotification(
-                content: .init(
-                    body: .ready(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(TimeInterval(-timeInterval)))),
-                    categoryIdentifier: .liveActivity
-                ),
-                at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+        if isInitialMode {
+            print("Initial")
+            for timeInterval in [1800, 3600, 5400, 7200] {
+                // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
+                self.notificationManager.scheduleAlarmNotification(
+                    content: .init(
+                        body: .ready(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(TimeInterval(-timeInterval)))),
+                        categoryIdentifier: .liveActivity
+                    ),
+                    at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+                )
+            }
+            
+            // TODO: 외출시간에 알림
+            self.notificationManager.scheduleAlarmNotification(
+                content: .init(body: .end),
+                at: outing.time
             )
-        }
-        
-        
-        // TODO: 외출시간에 알림
-        notificationManager.scheduleAlarmNotification(
-            content: .init(body: .end),
-            at: outing.time
-        )
-        
-        UNUserNotificationCenter.current().getPendingNotificationRequests { list in
-            print("Create--------------------------------")
-            print(list)
-        }
-        
-        // 라이브액티비티 업데이트
-        if isActiveLiveActivity {
-            Task { await liveActivityManager.updateActivity(outing.products) }
+            
+            self.remainingTimeValue = Int(outing.time.timeIntervalSinceNow)
+        } else {
+            print("Not")
+            // 라이브액티비티 업데이트
+            if isActiveLiveActivity {
+                Task { await liveActivityManager.updateActivity(outing.products) }
+            }
         }
     }
     

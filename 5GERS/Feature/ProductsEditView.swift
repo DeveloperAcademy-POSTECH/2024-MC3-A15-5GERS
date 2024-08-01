@@ -17,9 +17,12 @@ struct TextFieldItem: Identifiable {
 struct ProductsEditView: View {
     @Bindable private var viewModel: HomeViewModel
     @FocusState private var focusedField: Int?
+    @State private var isDisplayDoneAlert: Bool = false
+    let isInitialMode: Bool
     
-    init(viewModel: HomeViewModel) {
+    init(viewModel: HomeViewModel, isInitialMode: Bool) {
         self.viewModel = viewModel
+        self.isInitialMode = isInitialMode
     }
     
     var body: some View {
@@ -41,8 +44,7 @@ struct ProductsEditView: View {
                         Spacer()
                         Button(
                             action: {
-                                viewModel.saveProductsButtonTapped()
-                                viewModel.isPresentedProductsView = false
+                                isDisplayDoneAlert = true
                             },
                             label: {
                                 Text("완료")
@@ -111,10 +113,25 @@ struct ProductsEditView: View {
                 Spacer().frame(width: 46)
             }
         }
+        .alert(
+            "현재 내용을 저장하시겠습니까?",
+            isPresented: $isDisplayDoneAlert) {
+                Button(role: .cancel) {
+                } label: {
+                    Text("취소")
+                }
+                
+                Button {
+                    viewModel.saveProductsButtonTapped(isInitialMode: isInitialMode)
+                    viewModel.isPresentedProductsView = false
+                } label: {
+                    Text("저장")
+                }
+            }
     }
 }
 
 
 #Preview {
-    ProductsEditView(viewModel: HomeViewModel())
+    ProductsEditView(viewModel: HomeViewModel(), isInitialMode: true)
 }

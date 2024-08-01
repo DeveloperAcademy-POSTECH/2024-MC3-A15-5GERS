@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38FB2C57A69600CA22E4 /* _GERSApp.swift */; };
-		571D38FE2C57A69600CA22E4 /* TestHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38FD2C57A69600CA22E4 /* TestHomeView.swift */; };
 		571D39002C57A69800CA22E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
 		571D39032C57A69800CA22E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D39022C57A69800CA22E4 /* Preview Assets.xcassets */; };
 		571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */; };
@@ -80,7 +79,6 @@
 /* Begin PBXFileReference section */
 		571D38F82C57A69600CA22E4 /* 5GERS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5GERS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		571D38FB2C57A69600CA22E4 /* _GERSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _GERSApp.swift; sourceTree = "<group>"; };
-		571D38FD2C57A69600CA22E4 /* TestHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHomeView.swift; sourceTree = "<group>"; };
 		571D38FF2C57A69800CA22E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		571D39022C57A69800CA22E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 		571D390B2C57A95C00CA22E4 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				571D38FD2C57A69600CA22E4 /* TestHomeView.swift */,
 				5777735B2C58C548002D7370 /* HomeView.swift */,
 				5777735D2C59103E002D7370 /* SettingView.swift */,
 				5777735F2C591044002D7370 /* TimerView.swift */,
@@ -464,7 +461,6 @@
 				577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */,
 				577773582C587FF9002D7370 /* SwiftDataManager.swift in Sources */,
 				571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */,
-				571D38FE2C57A69600CA22E4 /* TestHomeView.swift in Sources */,
 				5777735E2C59103E002D7370 /* SettingView.swift in Sources */,
 				5777737C2C5927E3002D7370 /* Font.swift in Sources */,
 				571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */,

@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(HomeViewModel.self) private var homeViewModel
+    
     @AppStorage(UserDefaultsKey.isTodayAfter) private var isAfterToday: Bool = false
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                LinearGradient.background.ignoresSafeArea()
+            
                 
                 if isAfterToday { TimerView() }
                 else { SettingView() }
                 
-                if homeViewModel.isPresentedProductsView {
-                    ProductsEditView(viewModel: homeViewModel)
-                }
+                
             }
             
-        }
+        
     }
 }
 
