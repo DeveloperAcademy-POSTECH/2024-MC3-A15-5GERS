@@ -12,9 +12,9 @@ final class LiveActivityManager {
     static let shared = LiveActivityManager()
     private init() {}
     
-    func startActivity(_ time: Date) throws {
-        let attributes = LiveActivityWidgetAttributes(time: time)
-        let state = LiveActivityWidgetAttributes.ContentState()
+    func startActivity(_ outing: Outing) throws {
+        let attributes = LiveActivityWidgetAttributes(time: outing.time)
+        let state = LiveActivityWidgetAttributes.ContentState(products: outing.products)
         
         do {
             let _ = try Activity.request(
@@ -31,6 +31,12 @@ final class LiveActivityManager {
     
     func isActivateActivity() -> Bool {
         return !Activity<LiveActivityWidgetAttributes>.activities.isEmpty
+    }
+    
+    func updateActivity(_ products: [String]) async {
+        if let activity = Activity<LiveActivityWidgetAttributes>.activities.first {
+            await activity.update(.init(state: .init(products: products), staleDate: nil))
+        }
     }
     
     func endActivity() async {

@@ -35,6 +35,6 @@ final class UserDefaultsManager {
     }
     
     func removeOutingData() {
-        userDefaults.removeObject(forKey: UserDefaultsKey.outing)
+        userDefaults.set(nil, forKey: UserDefaultsKey.outing)
     }
 }

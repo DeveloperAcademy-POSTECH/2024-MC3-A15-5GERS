@@ -32,8 +32,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // TODO: 카테고리에 따라 라이브 액티비티 활성화
         print("Identifier: \(response.notification.request.content.categoryIdentifier)")
         
+        // TODO: 라이브 액티비티 활성화 상태 여부에 따라 활성화 결정
         let data = UserDefaultsManager.shared.getOutingData()
-        try? LiveActivityManager.shared.startActivity(data.time)
+        try? LiveActivityManager.shared.startActivity(data)
         
         // TODO: 라이브 액티비티 활성화 여부에 따라 추가 알림 등록
         

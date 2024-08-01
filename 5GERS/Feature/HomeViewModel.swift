@@ -34,8 +34,8 @@ final class HomeViewModel {
     
     private func initialData() {
         self.outing = userDefaultsManager.getOutingData()
-        
-        outing.products.forEach { products.append(TextFieldItem(text: $0)) }
+        self.isActiveLiveActivity = false
+        self.products = outing.products.map { TextFieldItem(text: $0) }
     }
 }
 
@@ -56,6 +56,12 @@ extension HomeViewModel {
         notificationManager.scheduleAlarmNotification(at: outing.time.addingTimeInterval(-60))
         // TODO: 외출시간에 알림
         notificationManager.scheduleAlarmNotification(at: outing.time)
+        
+        
+        // 라이브액티비티 업데이트
+        if isActiveLiveActivity {
+            Task { await liveActivityManager.updateActivity(outing.products) }
+        }
     }
     
     func addProductButtonTapped() {
@@ -83,7 +89,7 @@ extension HomeViewModel {
         if isActive {
             deleteOutingButtonTapped()
         } else {
-            try? liveActivityManager.startActivity(outing.time)
+            try? liveActivityManager.startActivity(outing)
         }
         
         isActiveLiveActivity = !isActive

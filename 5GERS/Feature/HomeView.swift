@@ -16,11 +16,8 @@ struct HomeView: View {
             ZStack {
                 LinearGradient.background.ignoresSafeArea()
                 
-                if isAfterToday {
-                    TimerView()
-                } else {
-                    SettingView()
-                }
+                if isAfterToday { TimerView() }
+                else { SettingView() }
                 
                 if homeViewModel.isPresentedProductsView {
                     ProductsEditView(viewModel: homeViewModel)

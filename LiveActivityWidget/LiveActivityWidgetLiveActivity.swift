@@ -12,6 +12,7 @@ import SwiftUI
 struct LiveActivityWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!
+        var products: [String]
     }
 
     // Fixed non-changing properties about your activity go here!
@@ -21,16 +22,42 @@ struct LiveActivityWidgetAttributes: ActivityAttributes {
 struct LiveActivityWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveActivityWidgetAttributes.self) { context in
-            // Lock screen/banner UI goes here
+            
             VStack {
-                Text(context.attributes.time, style: .timer)
-                    .monospacedDigit()
-                    .multilineTextAlignment(.center)
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading) {
+                        Text("챙길 소지품")
+                            .font(.system(size: 15, weight: .medium))
+                        Spacer()
+                        
+                        Text(context.state.products.joinWithComma())
+                            .font(.system(size: 15, weight: .semibold))
+                        Spacer()
+                    }
+                    .background(.red)
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        Text("외출까지")
+                            .font(.system(size: 15, weight: .medium))
+                        
+                        Text(context.attributes.time, style: .relative)
+                            .monospacedDigit()
+                            .font(.system(size: 25, weight: .semibold))
+                            .multilineTextAlignment(.trailing)
+//                            .minimumScaleFactor(0.1)
+//                            .frame(width: 180)
+                    }
+                    .background(.green)
+                }
+                .background(.yellow)
                 
-                ProgressView(timerInterval: Date()...Date().addingTimeInterval(3500))
+                ProgressView(timerInterval: Date()...context.attributes.time, countsDown: false)
                     .labelsHidden()
-                    .tint(.red)
-                    .scaleEffect(y: 1.5)
+                    .tint(Color(.blueMain))
+                    .scaleEffect(y: 4)
+                    
             }
             .padding(20)
             .activityBackgroundTint(Color.cyan)
@@ -41,22 +68,23 @@ struct LiveActivityWidgetLiveActivity: Widget {
                 // Expanded UI goes here.  Compose the expanded UI through
                 // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Button(action: {}, label: {
+                        Image(systemName: "xmark.circle.fill")
+                    })
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text(context.attributes.time, style: .timer)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom")
-                         
-                    // more content
+                    
                 }
             } compactLeading: {
-                Text("L")
+                Image(systemName: "heart")
             } compactTrailing: {
-                
-            } minimal: {
                 Text(context.attributes.time, style: .timer)
+                    .foregroundStyle(Color(.blueMain))
+            } minimal: {
+                Image(systemName: "heart")
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
@@ -66,24 +94,12 @@ struct LiveActivityWidgetLiveActivity: Widget {
 
 extension LiveActivityWidgetAttributes {
     fileprivate static var preview: LiveActivityWidgetAttributes {
-        LiveActivityWidgetAttributes(time: .now.addingTimeInterval(3600))
+        LiveActivityWidgetAttributes(time: .now.addingTimeInterval(120))
     }
 }
 
-//extension LiveActivityWidgetAttributes.ContentState {
-//    fileprivate static var smiley: LiveActivityWidgetAttributes.ContentState {
-//        LiveActivityWidgetAttributes.ContentState(emoji: "😀")
-//     }
-//     
-//     fileprivate static var starEyes: LiveActivityWidgetAttributes.ContentState {
-//         LiveActivityWidgetAttributes.ContentState(emoji: "🤩")
-//     }
-//}
-//
 #Preview("Notification", as: .content, using: LiveActivityWidgetAttributes.preview) {
    LiveActivityWidgetLiveActivity()
 } contentStates: {
-    LiveActivityWidgetAttributes.ContentState()
-//    LiveActivityWidgetAttributes.ContentState.smiley
-//    LiveActivityWidgetAttributes.ContentState.starEyes
+    LiveActivityWidgetAttributes.ContentState(products: ["차키", "지갑", "충전기", "지갑", "충전기"])
 }
