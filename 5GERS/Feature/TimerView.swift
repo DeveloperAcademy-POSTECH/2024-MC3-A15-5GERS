@@ -10,7 +10,9 @@ import SwiftUI
 
 
 struct TimerView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @Environment(HomeViewModel.self) private var viewModel
+    @AppStorage(UserDefaultsKey.isTodayAfter) var isTodayAfter: Bool = false
     
     var body: some View {
         
@@ -22,15 +24,21 @@ struct TimerView: View {
                 Spacer()
             }
             
+            HStack(spacing: 0) {
+                Text("\(viewModel.outing.time.koreanTime)")
+                    .foregroundStyle(AppColor.blue)
+                
+                Text(" 까지")
+                    .foregroundStyle(AppColor.gray4)
+            }
+            .font(AppFont.body3)
+            .padding(.top, 40)
+            
             Text(viewModel.outing.time, style: .timer)
                 .monospacedDigit()
                 .font(AppFont.largeTitle)
                 .foregroundStyle(AppColor.black)
-                .padding(.top, 40)
             
-            Text("\(viewModel.outing.time.koreanTime) 까지")
-                .font(AppFont.body3)
-                .foregroundStyle(AppColor.gray4)
             
             Spacer()
             
@@ -118,6 +126,13 @@ struct TimerView: View {
                 }
             }
         })
+        .onChange(of: scenePhase) { old, new in
+            if (old == .background) && (new == .inactive) {
+                if isTodayAfter && !viewModel.outing.time.isAfterToday {
+                    viewModel.deleteOutingButtonTapped()
+                }
+            }
+        }
     }
 }
 

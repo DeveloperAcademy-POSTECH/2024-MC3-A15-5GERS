@@ -30,5 +30,5 @@ struct AppFont {
     static let body1: Font = .custom(Pretendard.medium, size: 42)
     static let body2: Font = .custom(Pretendard.medium, size: 20)
     static let body3: Font = .custom(Pretendard.regular, size: 17)
-    static let caption: Font = .custom(Pretendard.regular, size: 11)
+    static let caption: Font = .custom(Pretendard.regular, size: 12)
 }

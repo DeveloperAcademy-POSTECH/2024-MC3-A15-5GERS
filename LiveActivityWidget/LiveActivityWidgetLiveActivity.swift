@@ -73,7 +73,7 @@ struct LiveActivityWidgetLiveActivity: Widget {
                     })
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text(context.attributes.time, style: .timer)
+                    Text(context.attributes.time, style: .relative)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     
@@ -94,7 +94,7 @@ struct LiveActivityWidgetLiveActivity: Widget {
 
 extension LiveActivityWidgetAttributes {
     fileprivate static var preview: LiveActivityWidgetAttributes {
-        LiveActivityWidgetAttributes(time: .now.addingTimeInterval(120))
+        LiveActivityWidgetAttributes(time: .now.addingTimeInterval(36))
     }
 }
 

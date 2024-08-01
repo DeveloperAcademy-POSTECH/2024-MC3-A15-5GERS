@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UserNotifications
 
 @Observable
 final class HomeViewModel {
@@ -50,13 +50,34 @@ extension HomeViewModel {
         outing.time = outing.time.timeFormat
         userDefaultsManager.setOutingData(outing)
         
+//        print(outing.time)
+//        print(outing.time.addingTimeInterval(-60))
+//        print(outing.time.remainingTimeFromNow)
+        
         self.outing = userDefaultsManager.getOutingData()
         
-        // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
-        notificationManager.scheduleAlarmNotification(at: outing.time.addingTimeInterval(-60))
-        // TODO: 외출시간에 알림
-        notificationManager.scheduleAlarmNotification(at: outing.time)
+        for timeInterval in [60, 120, 180] {
+            // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
+            notificationManager.scheduleAlarmNotification(
+                content: .init(
+                    body: .ready(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(TimeInterval(-timeInterval)))),
+                    categoryIdentifier: .liveActivity
+                ),
+                at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+            )
+        }
         
+        
+        // TODO: 외출시간에 알림
+        notificationManager.scheduleAlarmNotification(
+            content: .init(body: .end),
+            at: outing.time
+        )
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { list in
+            print("Create--------------------------------")
+            print(list)
+        }
         
         // 라이브액티비티 업데이트
         if isActiveLiveActivity {
@@ -90,6 +111,7 @@ extension HomeViewModel {
             deleteOutingButtonTapped()
         } else {
             try? liveActivityManager.startActivity(outing)
+            notificationManager.removeLiveActivityNotification()
         }
         
         isActiveLiveActivity = !isActive

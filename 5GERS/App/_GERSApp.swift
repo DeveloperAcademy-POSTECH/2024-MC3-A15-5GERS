@@ -12,8 +12,16 @@ import UserNotifications
 @main
 struct _GERSApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    @AppStorage(UserDefaultsKey.isTodayAfter) private var isTodayAfter: Bool = false
     
     @State private var homeViewModel = HomeViewModel()
+    
+    init() {
+        if isTodayAfter && !homeViewModel.outing.time.isAfterToday {
+            homeViewModel.deleteOutingButtonTapped()
+            print("tes")
+        }
+    }
     
     var body: some Scene {
         WindowGroup {
