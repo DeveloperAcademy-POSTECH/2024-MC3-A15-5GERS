@@ -14,12 +14,13 @@ struct TimerView: View {
     @Environment(HomeViewModel.self) private var viewModel
     @AppStorage(UserDefaultsKey.isTodayAfter) var isTodayAfter: Bool = false
     @State private var isDisplayDeleteAlert: Bool = false
-    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-
+    
+    
     
     var body: some View {
         ZStack {
             LinearGradient.background.ignoresSafeArea()
+            
             VStack {
                 HStack {
                     Text("외출 준비 중")
@@ -43,9 +44,9 @@ struct TimerView: View {
                     .font(AppFont.largeTitle)
                     .foregroundStyle(AppColor.black)
                 
-                Spacer()
-                Text("\(viewModel.remainingTimeValue)")
-                Spacer()
+                
+                CircularProgressView(viewModel: viewModel)
+                    
                 
                 VStack(spacing: 8) {
                     HStack {
@@ -117,7 +118,6 @@ struct TimerView: View {
                     y: 15
                 )
                 
-                Spacer().frame(height: 79)
             }
             .padding(.horizontal, 24)
             
@@ -160,10 +160,74 @@ struct TimerView: View {
                 Text("종료")
             }
         }
+        
+    }
+}
+
+fileprivate struct CircularProgressView: View {
+    private let viewModel: HomeViewModel
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    fileprivate var body: some View {
+        GeometryReader { proxy in
+            let width = proxy.size.width
+            Image(.timerBackground)
+                .resizable()
+                .frame(width: width, height: width)
+                .shadow(
+                    color: .black.opacity(0.1),
+                    radius: 20, x: 18, y: 18
+                )
+                .shadow(
+                    color: AppColor.gray1,
+                    radius: 20, x: -18, y: -18
+                )
+                .overlay {
+                    Path { path in
+                        
+                        // 포인터 이동
+                        path.move(
+                            to: CGPoint(
+                                x: width / 2,
+                                y: width / 2
+                            )
+                        )
+                        
+                        path.addArc(
+                            center: .init(
+                                x: width / 2,
+                                y: width / 2
+                            ),
+                            radius: CGFloat(width / 2 - 30),
+                            startAngle: .degrees(270),
+                            endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
+                            clockwise: true
+                        )
+                    }
+                    .fill(
+                        .red
+                    )
+                    
+                    Circle()
+                        .background(.ultraThinMaterial)
+                        .foregroundColor(.white.opacity(0.01))
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(150)
+                        .shadow(radius: 3)
+                }
+                
+        }
+        .padding(.horizontal, 10)
         .onReceive(timer) { _ in
-            self.viewModel.remainingTimeValue = Int(viewModel.outing.time.timeIntervalSinceNow)
+            self.viewModel.currentRemainingTimeValue = Int(viewModel.outing.time.timeIntervalSinceNow)
         }
     }
+    
 }
 
 #Preview {

@@ -21,7 +21,17 @@ final class HomeViewModel {
     
     // Timer View
     var isActiveLiveActivity: Bool = false
-    var remainingTimeValue: Int = 0
+    var totalRemainingValue: Int = 120
+    var currentRemainingTimeValue: Int = 0 {
+        didSet {
+            let minus = Double(totalRemainingValue - currentRemainingTimeValue)
+            let div = minus / Double(totalRemainingValue)
+            
+            remainingPercent = Int(div * 360)
+            
+        }
+    }
+    var remainingPercent: Int = 100
     
     private let userDefaultsManager = UserDefaultsManager.shared
     private let notificationManager = NotificationManager.shared
@@ -54,6 +64,12 @@ extension HomeViewModel {
         
         if isInitialMode {
             print("Initial")
+            
+            // TODO: 초기 설정 때 기준으로 남은 시간 가져오기 (UserDefaults에 따로 저장 필요할 듯)
+            // 또는, 2시간 전부터 프로그래스바 흐르도록
+            totalRemainingValue = Int(outing.time.timeIntervalSinceNow)
+            currentRemainingTimeValue = totalRemainingValue
+            
             for timeInterval in [1800, 3600, 5400, 7200] {
                 // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
                 self.notificationManager.scheduleAlarmNotification(
@@ -71,7 +87,7 @@ extension HomeViewModel {
                 at: outing.time
             )
             
-            self.remainingTimeValue = Int(outing.time.timeIntervalSinceNow)
+//            self.remainingTimeValue = Int(outing.time.timeIntervalSinceNow)
         } else {
             print("Not")
             // 라이브액티비티 업데이트
