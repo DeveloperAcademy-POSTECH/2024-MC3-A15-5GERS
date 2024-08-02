@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		571781632C5D0F750088E0D3 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */; };
+		571781642C5D0FC20088E0D3 /* Outing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* Outing.swift */; };
 		571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38FB2C57A69600CA22E4 /* _GERSApp.swift */; };
 		571D39002C57A69800CA22E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
 		571D39032C57A69800CA22E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D39022C57A69800CA22E4 /* Preview Assets.xcassets */; };
@@ -479,9 +481,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				571781632C5D0F750088E0D3 /* LiveActivityManager.swift in Sources */,
 				5777738D2C5A81F4002D7370 /* Array+Ext.swift in Sources */,
 				5777733B2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift in Sources */,
 				5777733D2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
+				571781642C5D0FC20088E0D3 /* Outing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,14 +8,13 @@
 import ActivityKit
 import WidgetKit
 import SwiftUI
+import AppIntents
 
 struct LiveActivityWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
         var products: [String]
     }
-
-    // Fixed non-changing properties about your activity go here!
+    
     var time: Date
 }
 
@@ -23,70 +22,70 @@ struct LiveActivityWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveActivityWidgetAttributes.self) { context in
             
-            VStack {
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading) {
-                        Text("챙길 소지품")
-                            .font(.system(size: 15, weight: .medium))
-                        Spacer()
-                        
-                        Text(context.state.products.joinWithComma())
-                            .font(.system(size: 15, weight: .semibold))
-                        Spacer()
-                    }
-                    .background(.red)
-                    
+            VStack(spacing: 20) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("챙길 소지품")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Color(.blueMain))
+                    Spacer().frame(width: 20)
                     Spacer()
+                    Text(context.state.products.joinWithComma())
+                        .lineLimit(1)
+                        .font(.system(size: 14, weight: .medium))
                     
-                    VStack(alignment: .trailing) {
-                        Text("외출까지")
-                            .font(.system(size: 15, weight: .medium))
-                        
-                        Text(context.attributes.time, style: .relative)
-                            .monospacedDigit()
-                            .font(.system(size: 25, weight: .semibold))
-                            .multilineTextAlignment(.trailing)
-//                            .minimumScaleFactor(0.1)
-//                            .frame(width: 180)
-                    }
-                    .background(.green)
                 }
-                .background(.yellow)
                 
-                ProgressView(timerInterval: Date()...context.attributes.time, countsDown: false)
+                HStack(alignment: .top) {
+                    Text("외출까지")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Color(.blueMain))
+                    Text(context.attributes.time, style: .relative)
+                        .multilineTextAlignment(.trailing)
+                        .font(.system(size: 45, weight: .semibold))
+                }
+                
+                ProgressView(timerInterval: context.attributes.time.addingTimeInterval(-7200)...context.attributes.time, countsDown: true)
                     .labelsHidden()
-                    .tint(Color(.blueMain))
-                    .scaleEffect(y: 4)
-                    
+                    .scaleEffect(y: 1.5)
             }
-            .padding(20)
+            .padding(30)
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
-
+            
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Button(action: {}, label: {
-                        Image(systemName: "xmark.circle.fill")
-                    })
+                    HStack {
+                        Button(intent: LiveActivityDeleteIntent()) {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                        }
+                    }
+                    
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text(context.attributes.time, style: .relative)
+                    VStack {
+                        Spacer()
+                        Text(context.attributes.time, style: .relative)
+                            .multilineTextAlignment(.trailing)
+                            .font(.system(size: 25, weight: .semibold))
+                            .frame(width: 130, height: 40)
+                    }
+                    
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    
                 }
             } compactLeading: {
                 Image(systemName: "heart")
             } compactTrailing: {
-                Text(context.attributes.time, style: .timer)
+                Text(context.attributes.time, style: .relative)
+                    .frame(width: 70)
                     .foregroundStyle(Color(.blueMain))
+                    .multilineTextAlignment(.trailing)
             } minimal: {
                 Image(systemName: "heart")
             }
-            .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
         }
     }
@@ -94,12 +93,21 @@ struct LiveActivityWidgetLiveActivity: Widget {
 
 extension LiveActivityWidgetAttributes {
     fileprivate static var preview: LiveActivityWidgetAttributes {
-        LiveActivityWidgetAttributes(time: .now.addingTimeInterval(36))
+        LiveActivityWidgetAttributes(time: .now.addingTimeInterval(3600))
+    }
+}
+
+struct LiveActivityDeleteIntent: AppIntent {
+    static let title: LocalizedStringResource = "삭제"
+    
+    func perform() async throws -> some IntentResult {
+        await LiveActivityManager.shared.endActivity()
+        return .result()
     }
 }
 
 #Preview("Notification", as: .content, using: LiveActivityWidgetAttributes.preview) {
-   LiveActivityWidgetLiveActivity()
+    LiveActivityWidgetLiveActivity()
 } contentStates: {
-    LiveActivityWidgetAttributes.ContentState(products: ["차키", "지갑", "충전기", "지갑", "충전기"])
+    LiveActivityWidgetAttributes.ContentState(products: ["차키", "지갑", "충전기", "지갑", "충전기", "지갑", "충전기"])
 }

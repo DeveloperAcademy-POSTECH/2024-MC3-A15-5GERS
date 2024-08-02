@@ -32,7 +32,7 @@ final class HomeViewModel {
             
         }
     }
-    var remainingPercent: Int = 100
+    var remainingPercent: Int = 0
     
     // TODO: DI 적용
     private let userDefaultsManager = UserDefaultsManager.shared
