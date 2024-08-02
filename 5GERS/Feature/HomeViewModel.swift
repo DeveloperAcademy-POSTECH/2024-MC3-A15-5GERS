@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 
+// TODO: State, Action으로 재정의하기
 @Observable
 final class HomeViewModel {
     
@@ -21,10 +22,10 @@ final class HomeViewModel {
     
     // Timer View
     var isActiveLiveActivity: Bool = false
-    var totalRemainingValue: Int = 120
+    var totalRemainingValue: Int = 7200
     var currentRemainingTimeValue: Int = 0 {
         didSet {
-            let minus = Double(totalRemainingValue - currentRemainingTimeValue)
+            let minus = Double(totalRemainingValue - min(currentRemainingTimeValue, totalRemainingValue))
             let div = minus / Double(totalRemainingValue)
             
             remainingPercent = Int(div * 360)
@@ -33,6 +34,7 @@ final class HomeViewModel {
     }
     var remainingPercent: Int = 100
     
+    // TODO: DI 적용
     private let userDefaultsManager = UserDefaultsManager.shared
     private let notificationManager = NotificationManager.shared
     private let swiftDataManager = SwiftDataManager.shared
@@ -67,8 +69,7 @@ extension HomeViewModel {
             
             // TODO: 초기 설정 때 기준으로 남은 시간 가져오기 (UserDefaults에 따로 저장 필요할 듯)
             // 또는, 2시간 전부터 프로그래스바 흐르도록
-            totalRemainingValue = Int(outing.time.timeIntervalSinceNow)
-            currentRemainingTimeValue = totalRemainingValue
+            currentRemainingTimeValue = Int(outing.time.timeIntervalSinceNow)
             
             for timeInterval in [1800, 3600, 5400, 7200] {
                 // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
@@ -87,7 +88,6 @@ extension HomeViewModel {
                 at: outing.time
             )
             
-//            self.remainingTimeValue = Int(outing.time.timeIntervalSinceNow)
         } else {
             print("Not")
             // 라이브액티비티 업데이트
@@ -108,8 +108,9 @@ extension HomeViewModel {
 
 // MARK: - HomeViewModel
 extension HomeViewModel {
+    // TODO: 함수명 변경
     func deleteOutingButtonTapped() {
-        userDefaultsManager.removeOutingData()
+        userDefaultsManager.setOutingData(Outing(time: .now, products: []))
         userDefaultsManager.setIsTodayAfter(false)
         notificationManager.removeAllAlarmNotification()
         Task { await liveActivityManager.endActivity() }

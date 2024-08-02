@@ -22,13 +22,6 @@ struct TimerView: View {
             LinearGradient.background.ignoresSafeArea()
             
             VStack {
-                HStack {
-                    Text("외출 준비 중")
-                        .font(AppFont.title1)
-                        .foregroundStyle(AppColor.black)
-                    Spacer()
-                }
-                
                 HStack(spacing: 0) {
                     Text("\(viewModel.outing.time.koreanTime)")
                         .foregroundStyle(AppColor.blue)
@@ -46,7 +39,7 @@ struct TimerView: View {
                 
                 
                 CircularProgressView(viewModel: viewModel)
-                    
+                
                 
                 VStack(spacing: 8) {
                     HStack {
@@ -167,7 +160,7 @@ struct TimerView: View {
 fileprivate struct CircularProgressView: View {
     private let viewModel: HomeViewModel
     
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -176,55 +169,73 @@ fileprivate struct CircularProgressView: View {
     fileprivate var body: some View {
         GeometryReader { proxy in
             let width = proxy.size.width
-            Image(.timerBackground)
-                .resizable()
-                .frame(width: width, height: width)
-                .shadow(
-                    color: .black.opacity(0.1),
-                    radius: 20, x: 18, y: 18
-                )
-                .shadow(
-                    color: AppColor.gray1,
-                    radius: 20, x: -18, y: -18
-                )
-                .overlay {
-                    Path { path in
-                        
-                        // 포인터 이동
-                        path.move(
-                            to: CGPoint(
-                                x: width / 2,
-                                y: width / 2
-                            )
-                        )
-                        
-                        path.addArc(
-                            center: .init(
-                                x: width / 2,
-                                y: width / 2
-                            ),
-                            radius: CGFloat(width / 2 - 30),
-                            startAngle: .degrees(270),
-                            endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
-                            clockwise: true
-                        )
-                    }
-                    .fill(
-                        .red
+            ZStack {
+                Image(.timerBackground)
+                    .resizable()
+                    .frame(width: width, height: width)
+                    .shadow(
+                        color: .black.opacity(0.1),
+                        radius: 20, x: 18, y: 18
                     )
-                    
-                    Circle()
-                        .background(.ultraThinMaterial)
-                        .foregroundColor(.white.opacity(0.01))
-                        .frame(width: 200, height: 200)
-                        .cornerRadius(150)
-                        .shadow(radius: 3)
-                }
+                    .shadow(
+                        color: AppColor.gray1,
+                        radius: 20, x: -18, y: -18
+                    )
+                    .overlay {
+                        ZStack {
+                            
+                            Path { path in
+                                
+                                // 포인터 이동
+                                path.move(
+                                    to: CGPoint(
+                                        x: width / 2,
+                                        y: width / 2
+                                    )
+                                )
+                                
+                                path.addArc(
+                                    center: .init(
+                                        x: width / 2,
+                                        y: width / 2
+                                    ),
+                                    radius: CGFloat(width / 2 - 30),
+                                    startAngle: .degrees(270),
+                                    endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
+                                    clockwise: true
+                                )
+                            }
+                            .fill(
+                                AngularGradient(
+                                    colors: viewModel.remainingPercent < 270
+                                    ? [AppColor.blue]
+                                    : [AppColor.red],
+                                    center: .center,
+                                    startAngle: .degrees(-90),
+                                    endAngle: .degrees(270)
+                                )
+                                
+                            )
+                        }
+                    }
                 
+                Circle()
+                    .background(.ultraThinMaterial)
+                    .foregroundColor(.white.opacity(0.1))
+                    .frame(width: width * (3/5), height: width * (3/5))
+                    .cornerRadius(width * (3/5) / 2)
+                    .shadow(radius: 3)
+            }
+            
         }
         .padding(.horizontal, 10)
         .onReceive(timer) { _ in
-            self.viewModel.currentRemainingTimeValue = Int(viewModel.outing.time.timeIntervalSinceNow)
+            let currentValue = Int(viewModel.outing.time.timeIntervalSinceNow)
+            self.viewModel.currentRemainingTimeValue = currentValue
+            if currentValue < 0 {
+                self.viewModel.deleteOutingButtonTapped()
+            }
+            
         }
     }
     

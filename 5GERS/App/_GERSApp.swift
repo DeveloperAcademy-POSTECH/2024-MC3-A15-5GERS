@@ -19,7 +19,6 @@ struct _GERSApp: App {
     init() {
         if isTodayAfter && !homeViewModel.outing.time.isAfterToday {
             homeViewModel.deleteOutingButtonTapped()
-            print("tes")
         }
     }
     
