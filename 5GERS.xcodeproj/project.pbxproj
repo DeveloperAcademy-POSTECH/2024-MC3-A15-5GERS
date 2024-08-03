@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		571781632C5D0F750088E0D3 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */; };
 		571781642C5D0FC20088E0D3 /* Outing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* Outing.swift */; };
+		571781672C5DF8470088E0D3 /* LiveActivityDeleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */; };
+		571781682C5DF8860088E0D3 /* LiveActivityDeleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */; };
 		571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38FB2C57A69600CA22E4 /* _GERSApp.swift */; };
 		571D39002C57A69800CA22E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
 		571D39032C57A69800CA22E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D39022C57A69800CA22E4 /* Preview Assets.xcassets */; };
@@ -26,7 +28,6 @@
 		577773452C57ADE1002D7370 /* LiveActivityWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 577773332C57ADE0002D7370 /* LiveActivityWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777733C2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift */; };
 		5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777734B2C57C0C1002D7370 /* AppDelegate.swift */; };
-		577773502C57D8EC002D7370 /* DateComponents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */; };
 		577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773512C5878F5002D7370 /* UserDefaultsManager.swift */; };
 		577773542C587BB6002D7370 /* ProductsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773532C587BB6002D7370 /* ProductsIntent.swift */; };
 		577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773552C587F95002D7370 /* Outing+SwiftData.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityDeleteIntent.swift; sourceTree = "<group>"; };
 		571D38F82C57A69600CA22E4 /* 5GERS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5GERS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		571D38FB2C57A69600CA22E4 /* _GERSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _GERSApp.swift; sourceTree = "<group>"; };
 		571D38FF2C57A69800CA22E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,7 +99,6 @@
 		577773402C57ADE1002D7370 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		577773422C57ADE1002D7370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5777734B2C57C0C1002D7370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Ext.swift"; sourceTree = "<group>"; };
 		577773512C5878F5002D7370 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		577773532C587BB6002D7370 /* ProductsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsIntent.swift; sourceTree = "<group>"; };
 		577773552C587F95002D7370 /* Outing+SwiftData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Outing+SwiftData.swift"; sourceTree = "<group>"; };
@@ -232,7 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				571D390F2C57A9DB00CA22E4 /* Date+Ext.swift */,
-				5777734F2C57D8EC002D7370 /* DateComponents+Ext.swift */,
 				577773822C5A5957002D7370 /* Array+Ext.swift */,
 			);
 			path = Extension;
@@ -298,6 +298,7 @@
 			children = (
 				5777733A2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift */,
 				5777733C2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift */,
+				571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */,
 				577773402C57ADE1002D7370 /* Assets.xcassets */,
 				5777738A2C5A80F5002D7370 /* Color.xcassets */,
 				577773422C57ADE1002D7370 /* Info.plist */,
@@ -455,10 +456,10 @@
 				577773602C591044002D7370 /* TimerView.swift in Sources */,
 				5777737F2C5929B1002D7370 /* Color.swift in Sources */,
 				571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */,
+				571781682C5DF8860088E0D3 /* LiveActivityDeleteIntent.swift in Sources */,
 				5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
 				577773862C5A6457002D7370 /* UserDefaultsKey.swift in Sources */,
 				577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */,
-				577773502C57D8EC002D7370 /* DateComponents+Ext.swift in Sources */,
 				571D39162C57AA8300CA22E4 /* CustomShortcuts.swift in Sources */,
 				577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */,
 				577773582C587FF9002D7370 /* SwiftDataManager.swift in Sources */,
@@ -484,6 +485,7 @@
 				571781632C5D0F750088E0D3 /* LiveActivityManager.swift in Sources */,
 				5777738D2C5A81F4002D7370 /* Array+Ext.swift in Sources */,
 				5777733B2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift in Sources */,
+				571781672C5DF8470088E0D3 /* LiveActivityDeleteIntent.swift in Sources */,
 				5777733D2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
 				571781642C5D0FC20088E0D3 /* Outing.swift in Sources */,
 			);

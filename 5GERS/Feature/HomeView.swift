@@ -8,20 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     @AppStorage(UserDefaultsKey.isTodayAfter) private var isAfterToday: Bool = false
     
     var body: some View {
         NavigationStack {
-            
-                
                 if isAfterToday { TimerView() }
                 else { SettingView() }
-                
-                
             }
-            
-        
     }
 }
 

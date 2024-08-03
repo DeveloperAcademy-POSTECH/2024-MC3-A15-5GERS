@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension Array where Element == String {
     func joinWithComma() -> String {
         return self.joined(separator: ", ")

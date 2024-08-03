@@ -23,6 +23,8 @@ struct ProductsEditView: View {
     init(viewModel: HomeViewModel, isInitialMode: Bool) {
         self.viewModel = viewModel
         self.isInitialMode = isInitialMode
+        
+        UIScrollView.appearance().bounces = false
     }
     
     var body: some View {
@@ -61,7 +63,6 @@ struct ProductsEditView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 focusedField = 0
                             }
-                            
                         },
                         label: {
                             HStack {
@@ -70,38 +71,42 @@ struct ProductsEditView: View {
                                 Text("추가하기")
                             }
                             .font(AppFont.body3)
-                            .foregroundStyle(AppColor.black)
+                            .foregroundStyle(AppColor.gray4)
                             
                     })
                     .padding(.top, 24)
                     .padding(.horizontal, 20)
                     
-                    VStack {
-                        ForEach(
-                            Array($viewModel.products.enumerated()),
-                            id: \.element.id
-                        ) { idx, product in
-                            HStack {
-                                TextField("", text: product.text)
-                                    .focused($focusedField, equals: idx)
-                                    .id(idx)
+                    
+                    ScrollView {
+                        VStack {
+                            ForEach(
+                                Array($viewModel.products.enumerated()),
+                                id: \.element.id
+                            ) { idx, product in
+                                HStack {
+                                    TextField("", text: product.text)
+                                        .focused($focusedField, equals: idx)
+                                        .id(idx)
+                                    
+                                    Button(
+                                        action: {
+                                            viewModel.deleteProductButtonTapped(at: idx)
+                                            
+                                        }, label: {
+                                            Image(systemName: "xmark")
+                                    })
+                                }
+                                .foregroundStyle(AppColor.gray5)
+                                .padding(15)
+                                .background(AppColor.gray2)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                                 
-                                Button(
-                                    action: {
-                                        viewModel.deleteProductButtonTapped(at: idx)
-                                        
-                                    }, label: {
-                                        Image(systemName: "xmark")
-                                })
                             }
-                            .foregroundStyle(AppColor.gray3)
-                            .padding(15)
-                            .background(AppColor.gray1)
-                            
                         }
-                    }
-                    .padding(.horizontal, 20)
+                        .padding(.horizontal, 20)
                     .padding(.top, 24)
+                    }
                     
                     Spacer()
                 }

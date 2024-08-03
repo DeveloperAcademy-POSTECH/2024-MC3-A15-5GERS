@@ -97,14 +97,7 @@ extension LiveActivityWidgetAttributes {
     }
 }
 
-struct LiveActivityDeleteIntent: AppIntent {
-    static let title: LocalizedStringResource = "삭제"
-    
-    func perform() async throws -> some IntentResult {
-        await LiveActivityManager.shared.endActivity()
-        return .result()
-    }
-}
+
 
 #Preview("Notification", as: .content, using: LiveActivityWidgetAttributes.preview) {
     LiveActivityWidgetLiveActivity()

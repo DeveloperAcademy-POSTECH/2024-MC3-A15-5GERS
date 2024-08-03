@@ -18,6 +18,7 @@ struct SettingView: View {
                 HStack {
                     Text("외출 시간을\n등록해 주세요")
                         .font(AppFont.title1)
+                        .foregroundStyle(AppColor.black)
                     Spacer()
                 }
                 .padding(.horizontal, 24)
@@ -25,7 +26,7 @@ struct SettingView: View {
                 Spacer().frame(height: 56)
                 
                 Text(homeViewModel.outing.time.timeFormat.koreanDate)
-                    .foregroundStyle(AppColor.gray3)
+                    .foregroundStyle(AppColor.gray4)
                     .font(AppFont.body3)
                 
                 Spacer()
@@ -37,6 +38,7 @@ struct SettingView: View {
                 )
                 .datePickerStyle(.wheel)
                 .labelsHidden()
+                .foregroundStyle(AppColor.black)
                 
                 
                 Spacer()
@@ -83,14 +85,10 @@ struct SettingView: View {
                     Image(systemName: "clock.arrow.circlepath")
                         .foregroundStyle(.black)
                 }
-                
             }
         })
     }
 }
-
-
-
 
 #Preview {
     SettingView()

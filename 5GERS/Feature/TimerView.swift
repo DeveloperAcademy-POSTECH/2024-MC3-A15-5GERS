@@ -183,6 +183,29 @@ fileprivate struct CircularProgressView: View {
                     )
                     .overlay {
                         ZStack {
+                            Path { path in
+                                
+                                // 포인터 이동
+                                path.move(
+                                    to: CGPoint(
+                                        x: width / 2,
+                                        y: width / 2
+                                    )
+                                )
+                                
+                                path.addArc(
+                                    center: .init(
+                                        x: width / 2,
+                                        y: width / 2
+                                    ),
+                                    radius: CGFloat(width / 2 - 30),
+                                    startAngle: .degrees(270),
+                                    endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
+                                    clockwise: true
+                                )
+                                
+                            }
+                            .fill(.white)
                             
                             Path { path in
                                 
@@ -204,18 +227,20 @@ fileprivate struct CircularProgressView: View {
                                     endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
                                     clockwise: true
                                 )
+                                
                             }
                             .fill(
                                 AngularGradient(
                                     colors: viewModel.remainingPercent < 270
-                                    ? [AppColor.blue]
-                                    : [AppColor.red],
+                                    ? [AppColor.blue.opacity(0.3), AppColor.blue]
+                                    : [AppColor.red.opacity(0.3), AppColor.red],
                                     center: .center,
                                     startAngle: .degrees(-90),
                                     endAngle: .degrees(270)
                                 )
                                 
                             )
+                            
                         }
                     }
                 
