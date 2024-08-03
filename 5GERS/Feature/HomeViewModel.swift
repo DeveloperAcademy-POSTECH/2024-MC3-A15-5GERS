@@ -29,7 +29,6 @@ final class HomeViewModel {
             let div = minus / Double(totalRemainingValue)
             
             remainingPercent = Int(div * 360)
-            
         }
     }
     var remainingPercent: Int = 0
@@ -46,7 +45,7 @@ final class HomeViewModel {
     
     private func initialData() {
         self.outing = userDefaultsManager.getOutingData()
-        self.isActiveLiveActivity = false
+        self.isActiveLiveActivity = liveActivityManager.isActivateActivity()
         self.products = outing.products.map { TextFieldItem(text: $0) }
     }
 }
@@ -120,13 +119,11 @@ extension HomeViewModel {
     func liveActivityButtonTapped() {
         let isActive = liveActivityManager.isActivateActivity()
         
-        if isActive {
-            deleteOutingButtonTapped()
-        } else {
+        if !isActive {
             try? liveActivityManager.startActivity(outing)
             notificationManager.removeLiveActivityNotification()
         }
         
-        isActiveLiveActivity = !isActive
+        //isActiveLiveActivity = !isActive
     }
 }

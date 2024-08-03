@@ -40,11 +40,14 @@ struct TimerView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            
+                            viewModel.liveActivityButtonTapped()
                         }, label: {
                             Circle()
-                                .frame(width: 80, height: 80)
+                                .frame(width: 70, height: 70)
                                 .foregroundStyle(AppColor.blue)
+                                .overlay {
+                                    Image(.logoIcon)
+                                }
                         })
                     }
                     
@@ -61,11 +64,9 @@ struct TimerView: View {
                         .foregroundStyle(AppColor.gray5)
                         
                         HStack {
-                            if viewModel.outing.products.isEmpty {
-                                Text("현재 등록하신 물건이 없습니다.")
-                            } else {
-                                Text(viewModel.outing.products.joinWithComma())
-                            }
+                            
+                            Text(viewModel.outing.products.joinWithComma())
+                            
                             Spacer()
                         }
                         .font(AppFont.body2)

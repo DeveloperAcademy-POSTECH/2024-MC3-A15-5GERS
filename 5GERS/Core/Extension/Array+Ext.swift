@@ -9,6 +9,7 @@ import Foundation
 
 extension Array where Element == String {
     func joinWithComma() -> String {
-        return self.joined(separator: ", ")
+        if self.isEmpty { return "없음" }
+        else { return self.joined(separator: ", ") }
     }
 }
