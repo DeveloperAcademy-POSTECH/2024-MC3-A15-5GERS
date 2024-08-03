@@ -61,17 +61,13 @@ extension HomeViewModel {
         self.outing.time = self.outing.time.timeFormat
         self.userDefaultsManager.setOutingData(self.outing)
         
-        self.outing = userDefaultsManager.getOutingData()
         
         if isInitialMode {
-            print("Initial")
-            
             // TODO: 초기 설정 때 기준으로 남은 시간 가져오기 (UserDefaults에 따로 저장 필요할 듯)
             // 또는, 2시간 전부터 프로그래스바 흐르도록
             currentRemainingTimeValue = Int(outing.time.timeIntervalSinceNow)
             
             for timeInterval in [1800, 3600, 5400, 7200] {
-                // TODO: 라이브 액티비티 활성화 유도 알림 등록 (지금은 1분 전으로)
                 self.notificationManager.scheduleAlarmNotification(
                     content: .init(
                         body: .ready(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(TimeInterval(-timeInterval)))),
@@ -87,12 +83,15 @@ extension HomeViewModel {
                 at: outing.time
             )
             
+            self.swiftDataManager.create(outing)
+            
         } else {
-            print("Not")
             // 라이브액티비티 업데이트
             if isActiveLiveActivity {
                 Task { await liveActivityManager.updateActivity(outing.products) }
             }
+            
+            self.swiftDataManager.update(outing)
         }
     }
     

@@ -62,6 +62,17 @@ final class SwiftDataManager {
         
     }
     
+    func update(_ data: Outing) {
+        let result = findSwiftData(data)
+        switch result {
+        case .success(let model):
+            model.products = data.products
+            print("update")
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+    }
+    
     func delete(_ data: Outing) throws {
         let result = findSwiftData(data)
         switch result {

@@ -80,7 +80,7 @@ struct SettingView: View {
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
-                    Text("test")
+                    HistoryView()
                 } label: {
                     Image(systemName: "clock.arrow.circlepath")
                         .foregroundStyle(.black)

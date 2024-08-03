@@ -26,6 +26,7 @@ struct _GERSApp: App {
         WindowGroup {
             HomeView()
                 .environment(homeViewModel)
+                .modelContainer(for: OutingSD.self)
         }
     }
 }

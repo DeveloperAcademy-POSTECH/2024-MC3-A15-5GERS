@@ -11,6 +11,7 @@
 		571781642C5D0FC20088E0D3 /* Outing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* Outing.swift */; };
 		571781672C5DF8470088E0D3 /* LiveActivityDeleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */; };
 		571781682C5DF8860088E0D3 /* LiveActivityDeleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */; };
+		5717816A2C5E5BC30088E0D3 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571781692C5E5BC30088E0D3 /* HistoryView.swift */; };
 		571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D38FB2C57A69600CA22E4 /* _GERSApp.swift */; };
 		571D39002C57A69800CA22E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
 		571D39032C57A69800CA22E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D39022C57A69800CA22E4 /* Preview Assets.xcassets */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		571781652C5DF8360088E0D3 /* LiveActivityDeleteIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityDeleteIntent.swift; sourceTree = "<group>"; };
+		571781692C5E5BC30088E0D3 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		571D38F82C57A69600CA22E4 /* 5GERS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5GERS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		571D38FB2C57A69600CA22E4 /* _GERSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _GERSApp.swift; sourceTree = "<group>"; };
 		571D38FF2C57A69800CA22E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				5777735B2C58C548002D7370 /* HomeView.swift */,
+				571781692C5E5BC30088E0D3 /* HistoryView.swift */,
 				5777735D2C59103E002D7370 /* SettingView.swift */,
 				5777735F2C591044002D7370 /* TimerView.swift */,
 				577773872C5A64C5002D7370 /* ProductsEditView.swift */,
@@ -453,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				577773642C591074002D7370 /* HomeViewModel.swift in Sources */,
+				5717816A2C5E5BC30088E0D3 /* HistoryView.swift in Sources */,
 				577773602C591044002D7370 /* TimerView.swift in Sources */,
 				5777737F2C5929B1002D7370 /* Color.swift in Sources */,
 				571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */,
