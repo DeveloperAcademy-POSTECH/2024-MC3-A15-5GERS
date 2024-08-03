@@ -24,17 +24,6 @@ extension Date {
         return formatter.string(from: self)
     }
     
-//    // 현재 시간으로부터 남은 시간을 리턴
-//    var remainingTimeFromNow: String {
-//        let remain = Int(self.timeIntervalSinceNow)
-//
-//        if remain < 3600 {
-//            return "\(remain / 60)분"
-//        } else {
-//            return "\(remain / 3600)시간 \(remain / 60 % 60)분"
-//        }
-//    }
-    
     // TODO: 변수 이름 변경
     // 타이머 형식 텍스트
     var timeFormat: Date {
@@ -78,11 +67,12 @@ extension Date {
         if remain < 3600 {
             return "\(remain / 60)분"
         } else {
-            return "\(remain / 3600)시간 \(remain / 60 % 60)분"
+            if remain / 3600 == 0 {
+                return "\(remain / 3600)시간"
+            } else {
+                return "\(remain / 3600)시간 \(remain / 60 % 60)분"
+            }
+            
         }
-    }
-    
-    func convertToTimerDate() {
-        
     }
 }
