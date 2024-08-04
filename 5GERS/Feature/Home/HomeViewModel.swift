@@ -126,3 +126,34 @@ extension HomeViewModel {
         //isActiveLiveActivity = !isActive
     }
 }
+
+// MARK: - HistoryView
+extension HomeViewModel {
+    func setOuting(_ outing: Outing) {
+        self.userDefaultsManager.setIsTodayAfter(true)
+        self.products = outing.products.map { TextFieldItem(text: $0) }
+        self.outing = outing
+        
+        currentRemainingTimeValue = Int(outing.time.timeIntervalSinceNow)
+        
+        for timeInterval in [1800, 3600, 5400, 7200] {
+            self.notificationManager.scheduleAlarmNotification(
+                content: .init(
+                    body: .ready(
+                        time: outing.time.convertRemainingTime(
+                            from: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+                        )
+                    ),
+                    categoryIdentifier: .liveActivity
+                ),
+                at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+            )
+        }
+        
+        // TODO: 외출시간에 알림
+        self.notificationManager.scheduleAlarmNotification(
+            content: .init(body: .end),
+            at: outing.time
+        )
+    }
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Outing: Codable {
+struct Outing: Codable, Hashable {
     var time: Date
     var products: [String]
 }
