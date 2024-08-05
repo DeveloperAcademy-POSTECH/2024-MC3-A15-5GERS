@@ -21,6 +21,7 @@ final class HomeViewModel {
     var isPresentedOutingList: Bool = false
     
     // Timer View
+    var isActivityButtonTapped: Bool = false
     var isActiveLiveActivity: Bool = false
     var totalRemainingValue: Int = 7200
     var currentRemainingTimeValue: Int = 0 {
@@ -77,7 +78,13 @@ extension HomeViewModel {
                 )
             }
             
-            // TODO: 외출시간에 알림
+            self.notificationManager.scheduleAlarmNotification(
+                content: .init(
+                    body: .comming(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(-600)))
+                ),
+                at: outing.time.addingTimeInterval(-600)
+            )
+            
             self.notificationManager.scheduleAlarmNotification(
                 content: .init(body: .end),
                 at: outing.time
@@ -150,7 +157,13 @@ extension HomeViewModel {
             )
         }
         
-        // TODO: 외출시간에 알림
+        self.notificationManager.scheduleAlarmNotification(
+            content: .init(
+                body: .comming(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(-600)))
+            ),
+            at: outing.time.addingTimeInterval(-600)
+        )
+        
         self.notificationManager.scheduleAlarmNotification(
             content: .init(body: .end),
             at: outing.time

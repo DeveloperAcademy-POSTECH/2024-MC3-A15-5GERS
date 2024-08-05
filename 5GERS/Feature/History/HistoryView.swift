@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct HistoryView : View {
-    @Query(sort: \OutingSD.time, order: .forward) var outings: [OutingSD]
     @Environment(HomeViewModel.self) private var homeViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var historyViewModel = HistoryViewModel()

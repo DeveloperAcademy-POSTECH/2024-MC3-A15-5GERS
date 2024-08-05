@@ -40,14 +40,29 @@ struct TimerView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            viewModel.liveActivityButtonTapped()
+//                            viewModel.liveActivityButtonTapped()
+                            withAnimation {
+                                viewModel.isActivityButtonTapped = true
+                            }
+                            
                         }, label: {
-                            Circle()
-                                .frame(width: 70, height: 70)
-                                .foregroundStyle(AppColor.blue)
-                                .overlay {
-                                    Image(.logoIcon)
+                            HStack {
+                                if viewModel.isActivityButtonTapped {
+                                    Text("실시간 현황을 통해 외출 시간을 확인해 보세요.")
+                                        .foregroundStyle(AppColor.white1)
+                                        .padding(.leading, 20)
                                 }
+                                Circle()
+                                    .frame(width: 70, height: 70)
+                                    .foregroundStyle(AppColor.blue)
+                                    .overlay {
+                                        Image(.logoIcon)
+                                    }
+                            }
+//                            .padding(5)
+                            .background(AppColor.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 35))
+                            
                         })
                     }
                     
@@ -81,49 +96,9 @@ struct TimerView: View {
                     }
                     
                     Spacer()
-                    
-                    //                Button(action: {
-                    //                    if viewModel.isActiveLiveActivity {
-                    //                        isDisplayDeleteAlert = true
-                    //                    } else {
-                    //                        withAnimation {
-                    //                            viewModel.liveActivityButtonTapped()
-                    //                        }
-                    //                    }
-                    //                }, label: {
-                    //                    HStack {
-                    //                        Spacer()
-                    //                        Text(
-                    //                            viewModel.isActiveLiveActivity
-                    //                            ? "외출 준비 중단하기"
-                    //                            : "외출 준비 시작하기"
-                    //                        )
-                    //                        .foregroundStyle(
-                    //                            viewModel.isActiveLiveActivity
-                    //                            ? AppColor.red
-                    //                            : AppColor.white1
-                    //                        )
-                    //                        Spacer()
-                    //                    }
-                    //                    .font(AppFont.body2)
-                    //                })
-                    //                .padding(.vertical, 14)
-                    //                .background(
-                    //                    viewModel.isActiveLiveActivity
-                    //                    ? AppColor.white1
-                    //                    : AppColor.blue
-                    //                )
-                    //                .clipShape(RoundedRectangle(cornerRadius: 15))
-                    //                .shadow(
-                    //                    color: .black.opacity(0.15),
-                    //                    radius: 20,
-                    //                    x: 10,
-                    //                    y: 15
-                    //                )
                 }
             }
             .padding(.horizontal, 24)
-//            .padding(.horizontal, 24)
             
             if viewModel.isPresentedProductsView {
                 ProductsEditView(viewModel: viewModel, isInitialMode: false)
@@ -271,19 +246,14 @@ fileprivate struct CircularProgressView: View {
                 .cornerRadius(width * (3/5) / 2)
                 .shadow(radius: 3)
         }
-        
-        
-//        .padding(.horizontal, 10)
         .onReceive(timer) { _ in
             let currentValue = Int(viewModel.outing.time.timeIntervalSinceNow)
             self.viewModel.currentRemainingTimeValue = currentValue
             if currentValue < 0 {
                 self.viewModel.deleteOutingButtonTapped()
             }
-            
         }
     }
-    
 }
 
 #Preview {

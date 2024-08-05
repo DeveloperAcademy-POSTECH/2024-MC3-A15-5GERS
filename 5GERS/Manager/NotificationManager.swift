@@ -34,11 +34,13 @@ struct NotificationContent {
     
     enum BodyType {
         case ready(time: String)
+        case comming(time: String)
         case end
         
         var value: String {
             switch self {
             case .ready(let time): "외출 시간까지 \(time) 남았습니다.\n실시간 현황을 통해 남은 시간을 확인해 보세요."
+            case .comming(let time): "외출 시간까지 \(time) 남았습니다.\n소지품은 잘 챙기셨는지 확인해 보세요."
             case .end: "외출 준비가 종료되었습니다."
             }
         }
