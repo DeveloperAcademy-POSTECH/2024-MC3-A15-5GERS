@@ -22,7 +22,8 @@ final class HomeViewModel {
     
     // Timer View
     var isActivityButtonTapped: Bool = false
-    var isActiveLiveActivity: Bool = false
+    var activityButtonState: String = ""
+//    var isActiveLiveActivity: Bool = false
     var totalRemainingValue: Int = 7200
     var currentRemainingTimeValue: Int = 0 {
         didSet {
@@ -46,7 +47,7 @@ final class HomeViewModel {
     
     private func initialData() {
         self.outing = userDefaultsManager.getOutingData()
-        self.isActiveLiveActivity = liveActivityManager.isActivateActivity()
+//        self.isActiveLiveActivity = liveActivityManager.isActivateActivity()
         self.products = outing.products.map { TextFieldItem(text: $0) }
     }
 }
@@ -94,7 +95,7 @@ extension HomeViewModel {
             
         } else {
             // 라이브액티비티 업데이트
-            if isActiveLiveActivity {
+            if liveActivityManager.isActivateActivity() {
                 Task { await liveActivityManager.updateActivity(outing.products) }
             }
             
@@ -123,14 +124,20 @@ extension HomeViewModel {
     }
     
     func liveActivityButtonTapped() {
-        let isActive = liveActivityManager.isActivateActivity()
-        
-        if !isActive {
-            try? liveActivityManager.startActivity(outing)
-            notificationManager.removeLiveActivityNotification()
+        if outing.time.timeIntervalSinceNow > 7200 {
+            self.activityButtonState = "외출 2시간 전부터 실시간 현황을 활성화 할 수 있습니다."
+        } else {
+            let isActive = liveActivityManager.isActivateActivity()
+            
+            if !isActive {
+                try? liveActivityManager.startActivity(outing)
+                notificationManager.removeLiveActivityNotification()
+                
+                self.activityButtonState = "실시간 현황을 활성화 하였습니다."
+            } else {
+                self.activityButtonState = "이미 실시간 현황을 활성화 하였습니다."
+            }
         }
-        
-        //isActiveLiveActivity = !isActive
     }
 }
 

@@ -40,15 +40,20 @@ struct TimerView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-//                            viewModel.liveActivityButtonTapped()
+                            viewModel.liveActivityButtonTapped()
                             withAnimation {
                                 viewModel.isActivityButtonTapped = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    withAnimation {
+                                        viewModel.isActivityButtonTapped = false
+                                    }
+                                }
                             }
                             
                         }, label: {
                             HStack {
                                 if viewModel.isActivityButtonTapped {
-                                    Text("실시간 현황을 통해 외출 시간을 확인해 보세요.")
+                                    Text(viewModel.activityButtonState)
                                         .foregroundStyle(AppColor.white1)
                                         .padding(.leading, 20)
                                 }
