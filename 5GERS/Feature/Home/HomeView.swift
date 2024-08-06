@@ -12,9 +12,9 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-                if isAfterToday { TimerView() }
-                else { SettingView() }
-            }
+            if isAfterToday { TimerView() }
+            else { SettingView() }
+        }
     }
 }
 

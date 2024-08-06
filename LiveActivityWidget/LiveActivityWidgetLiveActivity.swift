@@ -22,7 +22,8 @@ struct LiveActivityWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveActivityWidgetAttributes.self) { context in
             
-            VStack(spacing: 20) {
+            VStack(spacing: 10) {
+                
                 HStack(alignment: .firstTextBaseline) {
                     Text("챙길 소지품")
                         .font(.system(size: 16, weight: .semibold))
@@ -35,7 +36,7 @@ struct LiveActivityWidgetLiveActivity: Widget {
                     
                 }
                 
-                HStack(alignment: .top) {
+                HStack(alignment: .lastTextBaseline) {
                     Text("외출까지")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(Color(.blueMain))
@@ -44,11 +45,15 @@ struct LiveActivityWidgetLiveActivity: Widget {
                         .font(.system(size: 45, weight: .semibold))
                 }
                 
-                ProgressView(timerInterval: context.attributes.time.addingTimeInterval(-7200)...context.attributes.time, countsDown: true)
-                    .labelsHidden()
-                    .scaleEffect(y: 1.5)
+                HStack {
+                    ProgressView(timerInterval: context.attributes.time.addingTimeInterval(-7200)...context.attributes.time, countsDown: true)
+                        .labelsHidden()
+                        .scaleEffect(y: 1.5)
+                }
+                
+                    
             }
-            .padding(30)
+            .padding(20)
             .activityBackgroundTint(.white.opacity(0.6))
             .activitySystemActionForegroundColor(Color.black)
             

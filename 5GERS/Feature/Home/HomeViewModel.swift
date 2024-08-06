@@ -46,7 +46,12 @@ final class HomeViewModel {
     }
     
     private func initialData() {
-        self.outing = userDefaultsManager.getOutingData()
+        if UserDefaults.standard.bool(forKey: UserDefaultsKey.isTodayAfter) {
+            self.outing = userDefaultsManager.getOutingData()
+        } else {
+            self.outing = .init(time: .now, products: [])
+        }
+        
 //        self.isActiveLiveActivity = liveActivityManager.isActivateActivity()
         self.products = outing.products.map { TextFieldItem(text: $0) }
     }

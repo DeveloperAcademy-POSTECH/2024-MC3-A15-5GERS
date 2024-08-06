@@ -22,6 +22,7 @@
 		571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D39182C57AAAA00CA22E4 /* NotificationManager.swift */; };
 		571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */; };
 		571D391E2C57AAD000CA22E4 /* Outing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* Outing.swift */; };
+		5731C5172C61FCB500660C92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
 		577773362C57ADE0002D7370 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577773352C57ADE0002D7370 /* WidgetKit.framework */; };
 		577773382C57ADE0002D7370 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577773372C57ADE0002D7370 /* SwiftUI.framework */; };
 		5777733B2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777733A2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift */; };
@@ -463,6 +464,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				577773412C57ADE1002D7370 /* Assets.xcassets in Resources */,
+				5731C5172C61FCB500660C92 /* Assets.xcassets in Resources */,
 				5777738C2C5A8128002D7370 /* Color.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
