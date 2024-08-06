@@ -19,6 +19,7 @@ struct LiveActivityWidgetAttributes: ActivityAttributes {
 }
 
 struct LiveActivityWidgetLiveActivity: Widget {
+    @Environment(\.colorScheme) private var colorScheme
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveActivityWidgetAttributes.self) { context in
             
@@ -33,6 +34,7 @@ struct LiveActivityWidgetLiveActivity: Widget {
                     Text(context.state.products.joinWithComma())
                         .lineLimit(1)
                         .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(AppColor.white1)
                     
                 }
                 
@@ -43,6 +45,7 @@ struct LiveActivityWidgetLiveActivity: Widget {
                     Text(context.attributes.time, style: .relative)
                         .multilineTextAlignment(.trailing)
                         .font(.system(size: 45, weight: .semibold))
+                        .foregroundStyle(AppColor.white1)
                 }
                 
                 HStack {
@@ -54,8 +57,9 @@ struct LiveActivityWidgetLiveActivity: Widget {
                     
             }
             .padding(20)
-            .activityBackgroundTint(.white.opacity(0.6))
-            .activitySystemActionForegroundColor(Color.black)
+            .activityBackgroundTint(AppColor.black.opacity(0.8))
+            .activitySystemActionForegroundColor(AppColor.white1)
+            
             
         } dynamicIsland: { context in
             DynamicIsland {
@@ -82,14 +86,18 @@ struct LiveActivityWidgetLiveActivity: Widget {
                 DynamicIslandExpandedRegion(.bottom) {
                 }
             } compactLeading: {
-                Image(systemName: "heart")
+                Image("logo-icon-color")
+                    .resizable()
+                    .frame(width: 25, height: 25)
             } compactTrailing: {
                 Text(context.attributes.time, style: .relative)
                     .frame(width: 70)
                     .foregroundStyle(Color(.blueMain))
                     .multilineTextAlignment(.trailing)
             } minimal: {
-                Image(systemName: "heart")
+                Image("logo-icon-color")
+                    .resizable()
+                    .frame(width: 25, height: 25)
             }
             .keylineTint(Color.red)
         }

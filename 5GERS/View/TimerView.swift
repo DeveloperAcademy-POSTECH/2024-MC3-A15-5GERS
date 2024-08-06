@@ -219,7 +219,7 @@ fileprivate struct CircularProgressView: View {
                 .resizable()
                 .frame(width: width, height: width)
                 .shadow(
-                    color: .black.opacity(0.1),
+                    color: AppColor.black.opacity(0.1),
                     radius: 20, x: 18, y: 18
                 )
                 .shadow(
@@ -290,8 +290,8 @@ fileprivate struct CircularProgressView: View {
                 }
             
             Circle()
-                .background(.ultraThinMaterial)
-                .foregroundColor(.white.opacity(0.1))
+                .background(BlurView(style: .systemThinMaterialLight))
+                .foregroundColor(AppColor.white1.opacity(0.5))
                 .frame(width: width * (3/5), height: width * (3/5))
                 .cornerRadius(width * (3/5) / 2)
                 .shadow(radius: 3)
@@ -299,6 +299,30 @@ fileprivate struct CircularProgressView: View {
         
     }
 }
+
+fileprivate struct BlurView: UIViewRepresentable {
+    var style: UIBlurEffect.Style
+
+    func makeUIView(context: Context) -> some UIView {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .clear
+
+        let blurEffect = UIBlurEffect(style: style)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(blurView)
+
+        NSLayoutConstraint.activate([
+            blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            blurView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        ])
+
+        return view
+    }
+
+    func updateUIView(_ uiView: UIViewType, context: Context) {}
+}
+
 
 // MARK: - Function
 extension TimerView {

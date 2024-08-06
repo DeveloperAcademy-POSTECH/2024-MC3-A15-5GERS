@@ -22,6 +22,8 @@
 		571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */; };
 		571D391E2C57AAD000CA22E4 /* Outing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571D391D2C57AAD000CA22E4 /* Outing.swift */; };
 		5731C5172C61FCB500660C92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 571D38FF2C57A69800CA22E4 /* Assets.xcassets */; };
+		5731C5182C626B5C00660C92 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 577773652C5926C7002D7370 /* Color.xcassets */; };
+		5731C5192C626B9E00660C92 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777737E2C5929B1002D7370 /* Color.swift */; };
 		577773362C57ADE0002D7370 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577773352C57ADE0002D7370 /* WidgetKit.framework */; };
 		577773382C57ADE0002D7370 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577773372C57ADE0002D7370 /* SwiftUI.framework */; };
 		5777733B2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777733A2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift */; };
@@ -442,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				577773412C57ADE1002D7370 /* Assets.xcassets in Resources */,
+				5731C5182C626B5C00660C92 /* Color.xcassets in Resources */,
 				5731C5172C61FCB500660C92 /* Assets.xcassets in Resources */,
 				5777738C2C5A8128002D7370 /* Color.xcassets in Resources */,
 			);
@@ -486,6 +489,7 @@
 			files = (
 				571781632C5D0F750088E0D3 /* LiveActivityManager.swift in Sources */,
 				5777738D2C5A81F4002D7370 /* Array+Ext.swift in Sources */,
+				5731C5192C626B9E00660C92 /* Color.swift in Sources */,
 				5777733B2C57ADE0002D7370 /* LiveActivityWidgetBundle.swift in Sources */,
 				571781672C5DF8470088E0D3 /* LiveActivityDeleteIntent.swift in Sources */,
 				5777733D2C57ADE0002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
