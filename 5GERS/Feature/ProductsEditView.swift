@@ -1,0 +1,142 @@
+//
+//  ProductsEditView.swift
+//  5GERS
+//
+//  Created by 이정동 on 7/31/24.
+//
+
+import Foundation
+import SwiftUI
+
+
+struct TextFieldItem: Identifiable {
+    let id = UUID()
+    var text: String
+}
+
+struct ProductsEditView: View {
+    @Bindable private var viewModel: HomeViewModel
+    @FocusState private var focusedField: Int?
+    @State private var isDisplayDoneAlert: Bool = false
+    let isInitialMode: Bool
+    
+    init(viewModel: HomeViewModel, isInitialMode: Bool) {
+        self.viewModel = viewModel
+        self.isInitialMode = isInitialMode
+        
+        UIScrollView.appearance().bounces = false
+    }
+    
+    var body: some View {
+        ZStack {
+            AppColor.black.opacity(0.5).ignoresSafeArea()
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.isPresentedProductsView = false
+                    }
+                }
+            
+            HStack {
+                Spacer().frame(width: 46)
+                
+                VStack {
+                    HStack {
+                        Text("꼭 챙겨야 할 소지품")
+                            .foregroundStyle(AppColor.black)
+                        Spacer()
+                        Button(
+                            action: {
+                                isDisplayDoneAlert = true
+                            },
+                            label: {
+                                Text("완료")
+                                    .foregroundStyle(AppColor.blue)
+                        })
+                    }
+                    .font(AppFont.title2)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 24)
+                    
+                    Button(
+                        action: {
+                            viewModel.addProductButtonTapped()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                focusedField = 0
+                            }
+                        },
+                        label: {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "plus")
+                                Text("추가하기")
+                            }
+                            .font(AppFont.body3)
+                            .foregroundStyle(AppColor.gray4)
+                            
+                    })
+                    .padding(.top, 24)
+                    .padding(.horizontal, 20)
+                    
+                    
+                    ScrollView {
+                        VStack {
+                            ForEach(
+                                Array($viewModel.products.enumerated()),
+                                id: \.element.id
+                            ) { idx, product in
+                                HStack {
+                                    TextField("", text: product.text)
+                                        .focused($focusedField, equals: idx)
+                                        .id(idx)
+                                    
+                                    Button(
+                                        action: {
+                                            viewModel.deleteProductButtonTapped(at: idx)
+                                            
+                                        }, label: {
+                                            Image(systemName: "xmark")
+                                    })
+                                }
+                                .foregroundStyle(AppColor.gray5)
+                                .padding(15)
+                                .background(AppColor.gray2)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                    .padding(.top, 24)
+                    }
+                    
+                    Spacer()
+                }
+                // TODO: 높이 크기 조정
+                .frame(height: 450)
+                .background(AppColor.white1)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                
+                Spacer().frame(width: 46)
+            }
+        }
+        .alert(
+            "현재 내용을 저장하시겠습니까?",
+            isPresented: $isDisplayDoneAlert) {
+                Button(role: .cancel) {
+                } label: {
+                    Text("취소")
+                }
+                
+                Button {
+                    viewModel.saveProductsButtonTapped(isInitialMode: isInitialMode)
+                    viewModel.isPresentedProductsView = false
+                } label: {
+                    Text("저장")
+                }
+            }
+    }
+}
+
+
+#Preview {
+    ProductsEditView(viewModel: HomeViewModel(), isInitialMode: true)
+}
