@@ -14,18 +14,19 @@ struct _GERSApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @AppStorage(UserDefaultsKey.isTodayAfter) private var isTodayAfter: Bool = false
     
-    @State private var homeViewModel = HomeViewModel()
-    
     init() {
-        if isTodayAfter && !homeViewModel.outing.time.isAfterToday {
-            homeViewModel.deleteOutingButtonTapped()
+        let outing = UserDefaultsManager.shared.getOutingData()
+        if isTodayAfter && !outing.time.isAfterToday {
+            UserDefaultsManager.shared.setOutingData(.init(time: .now, products: []))
+            UserDefaultsManager.shared.setIsTodayAfter(false)
+            Task { await LiveActivityManager.shared.endActivity() }
         }
     }
     
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environment(homeViewModel)
+                .modelContainer(for: OutingSD.self)
         }
     }
 }

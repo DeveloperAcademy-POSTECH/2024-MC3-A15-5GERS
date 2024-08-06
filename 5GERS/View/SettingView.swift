@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SettingView: View {
-    @Environment(HomeViewModel.self) private var homeViewModel
+    @Binding var outing: Outing
+    @State private var isPresentedProductsEditView: Bool = false
     
     var body: some View {
-        @Bindable var viewModel = homeViewModel
         ZStack {
             LinearGradient.background.ignoresSafeArea()
             VStack {
@@ -25,7 +25,7 @@ struct SettingView: View {
                 
                 Spacer().frame(height: 56)
                 
-                Text(homeViewModel.outing.time.timeFormat.koreanDate)
+                Text(outing.time.timeFormat.koreanDate)
                     .foregroundStyle(AppColor.gray4)
                     .font(AppFont.body3)
                 
@@ -33,19 +33,20 @@ struct SettingView: View {
                 
                 DatePicker(
                     "", 
-                    selection: $viewModel.outing.time,
+                    selection: $outing.time,
                     displayedComponents: .hourAndMinute
                 )
                 .datePickerStyle(.wheel)
                 .labelsHidden()
-                .foregroundStyle(AppColor.black)
+                .colorInvert()
+                .colorMultiply(.black)
                 
                 
                 Spacer()
                 
                 Button(action: {
                     withAnimation {
-                        viewModel.isPresentedProductsView = true
+                        self.isPresentedProductsEditView = true
                     }
                     
                 }, label: {
@@ -73,14 +74,17 @@ struct SettingView: View {
                 Spacer().frame(height: 79)
             }
             
-            if viewModel.isPresentedProductsView {
-                ProductsEditView(viewModel: viewModel, isInitialMode: true)
+            if isPresentedProductsEditView {
+                ProductsEditView(
+                    outing: $outing,
+                    isPresentedProductsEditView: $isPresentedProductsEditView,
+                    isInitialMode: true)
             }
         }
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
-                    HistoryView()
+                    HistoryView(outing: $outing)
                 } label: {
                     Image(systemName: "clock.arrow.circlepath")
                         .foregroundStyle(.black)
@@ -91,6 +95,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView()
-        .environment(HomeViewModel())
+    SettingView(outing: .constant(.init(time: .now, products: [])))
 }

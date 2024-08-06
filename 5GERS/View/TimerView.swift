@@ -9,9 +9,33 @@ import SwiftUI
 
 struct TimerView: View {
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(HomeViewModel.self) private var viewModel
     @AppStorage(UserDefaultsKey.isTodayAfter) var isTodayAfter: Bool = false
+    
+    @State var isPresentedProductsEditView: Bool = false
     @State private var isDisplayDeleteAlert: Bool = false
+    @State private var isActivityButtonTapped: Bool = false
+    @State private var activityButtonState: String = ""
+    
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    let totalRemainTimerValue: Int = 7200
+    @State private var currentRemainTimerValue: Int = 0 {
+        didSet {
+            let minus = Double(totalRemainTimerValue - min(currentRemainTimerValue, totalRemainTimerValue))
+            let div = minus / Double(totalRemainTimerValue)
+            
+            remainTimerDegreeValue = Int(div * 360)
+        }
+    }
+    @State private var remainTimerDegreeValue: Int = 0
+    
+    @Binding var outing: Outing
+    
+    init(outing: Binding<Outing>) {
+        self._outing = outing
+        
+        let value = outing.wrappedValue.time.timeIntervalSinceNow
+        self._currentRemainTimerValue = State(initialValue: Int(value))
+    }
     
     var body: some View {
         ZStack {
@@ -20,7 +44,7 @@ struct TimerView: View {
             GeometryReader { proxy in
                 VStack {
                     HStack(spacing: 0) {
-                        Text("\(viewModel.outing.time.koreanTime)")
+                        Text("\(outing.time.koreanTime)")
                             .foregroundStyle(AppColor.blue)
                         
                         Text(" 까지")
@@ -29,31 +53,35 @@ struct TimerView: View {
                     .font(AppFont.body3)
                     .padding(.top, 40)
                     
-                    Text(viewModel.outing.time, style: .timer)
+                    Text(outing.time, style: .timer)
                         .monospacedDigit()
                         .font(AppFont.largeTitle)
                         .foregroundStyle(AppColor.black)
                     
                     
-                    CircularProgressView(viewModel: viewModel, proxy: proxy)
+                    CircularProgressView(
+                        outing: outing,
+                        proxy: proxy,
+                        remainTimerDegreeValue: $remainTimerDegreeValue
+                    )
                     
                     HStack {
                         Spacer()
                         Button(action: {
-                            viewModel.liveActivityButtonTapped()
+                            self.liveActivityButtonTapped()
                             withAnimation {
-                                viewModel.isActivityButtonTapped = true
+                                self.isActivityButtonTapped = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {
-                                        viewModel.isActivityButtonTapped = false
+                                        self.isActivityButtonTapped = false
                                     }
                                 }
                             }
                             
                         }, label: {
                             HStack {
-                                if viewModel.isActivityButtonTapped {
-                                    Text(viewModel.activityButtonState)
+                                if self.isActivityButtonTapped {
+                                    Text(self.activityButtonState)
                                         .foregroundStyle(AppColor.white1)
                                         .padding(.leading, 20)
                                 }
@@ -85,7 +113,7 @@ struct TimerView: View {
                         
                         HStack {
                             
-                            Text(viewModel.outing.products.joinWithComma())
+                            Text(outing.products.joinWithComma())
                             
                             Spacer()
                         }
@@ -97,7 +125,7 @@ struct TimerView: View {
                     .background(AppColor.gray1)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .onTapGesture {
-                        viewModel.isPresentedProductsView = true
+                        self.isPresentedProductsEditView = true
                     }
                     
                     Spacer()
@@ -105,8 +133,12 @@ struct TimerView: View {
             }
             .padding(.horizontal, 24)
             
-            if viewModel.isPresentedProductsView {
-                ProductsEditView(viewModel: viewModel, isInitialMode: false)
+            if self.isPresentedProductsEditView {
+                ProductsEditView(
+                    outing: $outing,
+                    isPresentedProductsEditView: $isPresentedProductsEditView,
+                    isInitialMode: false
+                )
             }
         }
         .toolbar(content: {
@@ -131,8 +163,8 @@ struct TimerView: View {
         })
         .onChange(of: scenePhase) { old, new in
             if (old == .background) && (new == .inactive) {
-                if isTodayAfter && !viewModel.outing.time.isAfterToday {
-                    viewModel.deleteOutingButtonTapped()
+                if isTodayAfter && !outing.time.isAfterToday {
+                    self.resetOutingData()
                 }
             }
         }
@@ -146,9 +178,16 @@ struct TimerView: View {
             }
             
             Button(role: .destructive) {
-                viewModel.deleteOutingButtonTapped()
+                self.resetOutingData()
             } label: {
                 Text("종료")
+            }
+        }
+        .onReceive(timer) { _ in
+            let currentValue = Int(outing.time.timeIntervalSinceNow)
+            self.currentRemainTimerValue = currentValue
+            if currentValue < 0 {
+                self.resetOutingData()
             }
         }
         
@@ -156,14 +195,20 @@ struct TimerView: View {
 }
 
 fileprivate struct CircularProgressView: View {
-    private let viewModel: HomeViewModel
+    
+    @Binding private var remainTimerDegreeValue: Int
+    
     private let proxy: GeometryProxy
+    private let outing: Outing
     
-    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    
-    init(viewModel: HomeViewModel, proxy: GeometryProxy) {
-        self.viewModel = viewModel
+    init(
+        outing: Outing,
+        proxy: GeometryProxy,
+        remainTimerDegreeValue: Binding<Int>
+    ) {
+        self.outing = outing
         self.proxy = proxy
+        self._remainTimerDegreeValue = remainTimerDegreeValue
     }
     
     fileprivate var body: some View {
@@ -200,7 +245,7 @@ fileprivate struct CircularProgressView: View {
                                 ),
                                 radius: CGFloat(width / 2 - 30),
                                 startAngle: .degrees(270),
-                                endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
+                                endAngle: .degrees(Double(remainTimerDegreeValue - 90)),
                                 clockwise: true
                             )
                             
@@ -224,14 +269,14 @@ fileprivate struct CircularProgressView: View {
                                 ),
                                 radius: CGFloat(width / 2 - 30),
                                 startAngle: .degrees(270),
-                                endAngle: .degrees(Double(viewModel.remainingPercent - 90)),
+                                endAngle: .degrees(Double(remainTimerDegreeValue - 90)),
                                 clockwise: true
                             )
                             
                         }
                         .fill(
                             AngularGradient(
-                                colors: viewModel.remainingPercent < 270
+                                colors: remainTimerDegreeValue < 270
                                 ? [AppColor.blue.opacity(0.3), AppColor.blue]
                                 : [AppColor.red.opacity(0.3), AppColor.red],
                                 center: .center,
@@ -251,17 +296,44 @@ fileprivate struct CircularProgressView: View {
                 .cornerRadius(width * (3/5) / 2)
                 .shadow(radius: 3)
         }
-        .onReceive(timer) { _ in
-            let currentValue = Int(viewModel.outing.time.timeIntervalSinceNow)
-            self.viewModel.currentRemainingTimeValue = currentValue
-            if currentValue < 0 {
-                self.viewModel.deleteOutingButtonTapped()
+        
+    }
+}
+
+// MARK: - Function
+extension TimerView {
+    private func resetOutingData() {
+        // UserDefaults 설정
+        UserDefaultsManager.shared.setOutingData(.init(time: .now, products: []))
+        UserDefaultsManager.shared.setIsTodayAfter(false)
+        
+        // Notification 설정
+        NotificationManager.shared.removeAllAlarmNotification()
+        
+        // LiveActivity 설정
+        Task { await LiveActivityManager.shared.endActivity() }
+        
+        self.outing = .init(time: .now, products: [])
+    }
+    
+    private func liveActivityButtonTapped() {
+        if self.outing.time.timeIntervalSinceNow > 7200 {
+            self.activityButtonState = "외출 2시간 전부터 실시간 현황을 활성화 할 수 있습니다."
+        } else {
+            let isActivity = LiveActivityManager.shared.isActivateActivity()
+            
+            if !isActivity {
+                try? LiveActivityManager.shared.startActivity(outing)
+                NotificationManager.shared.removeLiveActivityNotification()
+                
+                self.activityButtonState = "실시간 현황을 활성화 하였습니다."
+            } else {
+                self.activityButtonState = "이미 실시간 현황을 활성화 하였습니다."
             }
         }
     }
 }
 
 #Preview {
-    TimerView()
-        .environment(HomeViewModel())
+    TimerView(outing: .constant(.init(time: .now, products: [])))
 }
