@@ -328,9 +328,7 @@ fileprivate struct BlurView: UIViewRepresentable {
 extension TimerView {
     private func resetOutingData() {
         // UserDefaults 설정
-        UserDefaultsManager.shared.setOutingData(.init(time: .now, products: []))
-        UserDefaultsManager.shared.setIsTodayAfter(false)
-        
+        UserDefaultsManager.shared.setOuting(nil)
         // Notification 설정
         NotificationManager.shared.removeAllAlarmNotification()
         

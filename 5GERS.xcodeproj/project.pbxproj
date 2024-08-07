@@ -35,7 +35,6 @@
 		577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773512C5878F5002D7370 /* UserDefaultsManager.swift */; };
 		577773542C587BB6002D7370 /* ProductsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773532C587BB6002D7370 /* ProductsIntent.swift */; };
 		577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773552C587F95002D7370 /* Outing+SwiftData.swift */; };
-		577773582C587FF9002D7370 /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773572C587FF9002D7370 /* SwiftDataManager.swift */; };
 		5777735C2C58C548002D7370 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777735B2C58C548002D7370 /* HomeView.swift */; };
 		5777735E2C59103E002D7370 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777735D2C59103E002D7370 /* SettingView.swift */; };
 		577773602C591044002D7370 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777735F2C591044002D7370 /* TimerView.swift */; };
@@ -106,7 +105,6 @@
 		577773512C5878F5002D7370 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		577773532C587BB6002D7370 /* ProductsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsIntent.swift; sourceTree = "<group>"; };
 		577773552C587F95002D7370 /* Outing+SwiftData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Outing+SwiftData.swift"; sourceTree = "<group>"; };
-		577773572C587FF9002D7370 /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
 		5777735B2C58C548002D7370 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5777735D2C59103E002D7370 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		5777735F2C591044002D7370 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				571D39182C57AAAA00CA22E4 /* NotificationManager.swift */,
 				571D391A2C57AAB000CA22E4 /* LiveActivityManager.swift */,
 				577773512C5878F5002D7370 /* UserDefaultsManager.swift */,
-				577773572C587FF9002D7370 /* SwiftDataManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -467,7 +464,6 @@
 				577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */,
 				571D39162C57AA8300CA22E4 /* CustomShortcuts.swift in Sources */,
 				577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */,
-				577773582C587FF9002D7370 /* SwiftDataManager.swift in Sources */,
 				571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */,
 				5777735E2C59103E002D7370 /* SettingView.swift in Sources */,
 				5777737C2C5927E3002D7370 /* Font.swift in Sources */,

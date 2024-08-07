@@ -14,11 +14,21 @@ final class UserDefaultsManager {
     
     private init() {}
     
-    func setIsTodayAfter(_ bool: Bool) {
+    func setOuting(_ outing: Outing?) {
+        if let outing = outing {
+            self.setIsTodayAfter(true)
+            self.setOutingData(outing)
+        } else {
+            self.setIsTodayAfter(false)
+            self.setOutingData(.init(time: .now, products: []))
+        }
+    }
+    
+    private func setIsTodayAfter(_ bool: Bool) {
         userDefaults.setValue(bool, forKey: UserDefaultsKey.isTodayAfter)
     }
     
-    func setOutingData(_ data: Outing) {
+    private func setOutingData(_ data: Outing) {
         if let encodedData = try? JSONEncoder().encode(data) {
             userDefaults.set(encodedData, forKey: UserDefaultsKey.outing)
         }

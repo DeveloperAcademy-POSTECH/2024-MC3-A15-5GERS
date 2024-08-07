@@ -12,18 +12,15 @@ import UserNotifications
 @main
 struct _GERSApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    @Environment(\.scenePhase) private var scnenePhase
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage(UserDefaultsKey.isTodayAfter) private var isTodayAfter: Bool = false
     
     init() {
         let outing = UserDefaultsManager.shared.getOutingData()
         if isTodayAfter && !outing.time.isAfterToday {
-            UserDefaultsManager.shared.setOutingData(.init(time: .now, products: []))
-            UserDefaultsManager.shared.setIsTodayAfter(false)
+            UserDefaultsManager.shared.setOuting(nil)
             Task { await LiveActivityManager.shared.endActivity() }
         }
-        
-        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
     var body: some Scene {
@@ -31,10 +28,10 @@ struct _GERSApp: App {
             HomeView()
                 .modelContainer(for: OutingSD.self)
         }
-        .onChange(of: scnenePhase, initial: true) { oldValue, newValue in
-//            if case let newValue == .active {
-//                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-//            }
+        .onChange(of: scenePhase, initial: true) {
+            if case .active = $1 {
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            }
         }
     }
 }

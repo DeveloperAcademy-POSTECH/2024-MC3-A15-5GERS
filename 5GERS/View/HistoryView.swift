@@ -91,34 +91,12 @@ struct HistoryView : View {
 
 extension HistoryView {
     private func setOuting(_ outing: OutingSD) {
-        UserDefaultsManager.shared.setIsTodayAfter(true)
+        
+        
         self.outing = outing.toEntity()
-        
-        for timeInterval in [1800, 3600, 5400, 7200] {
-            NotificationManager.shared.scheduleAlarmNotification(
-                content: .init(
-                    body: .ready(
-                        time: outing.time.convertRemainingTime(
-                            from: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
-                        )
-                    ),
-                    categoryIdentifier: .liveActivity
-                ),
-                at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
-            )
-        }
-        
-        NotificationManager.shared.scheduleAlarmNotification(
-            content: .init(
-                body: .comming(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(-600)))
-            ),
-            at: outing.time.addingTimeInterval(-600)
-        )
-        
-        NotificationManager.shared.scheduleAlarmNotification(
-            content: .init(body: .end),
-            at: outing.time
-        )
+
+        UserDefaultsManager.shared.setOuting(self.outing)
+        NotificationManager.shared.scheduleAllAlarmNotification(self.outing)
     }
 }
 

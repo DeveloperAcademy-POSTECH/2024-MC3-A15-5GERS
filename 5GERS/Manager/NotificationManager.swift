@@ -99,8 +99,42 @@ final class NotificationManager {
             }
     }
     
-    // TODO: Notification Content를 매개변수로 전달받아 처리
-    func scheduleAlarmNotification(content: NotificationContent, at date: Date) {
+    func scheduleAllAlarmNotification(_ outing: Outing) {
+        // 라이브 액티비티 활성화 유도 알림
+        for timeInterval in [1800, 3600, 5400, 7200] {
+            self.scheduleAlarmNotification(
+                content: .init(
+                    body: .ready(
+                        time: outing.time.convertRemainingTime(
+                            from: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+                        )
+                    ),
+                    categoryIdentifier: .liveActivity
+                ),
+                at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
+            )
+        }
+        
+        // 외출 10분 전 알림
+        self.scheduleAlarmNotification(
+            content: .init(
+                body: .comming(
+                    time: outing.time.convertRemainingTime(
+                        from: outing.time.addingTimeInterval(-600)
+                    )
+                )
+            ),
+            at: outing.time.addingTimeInterval(-600)
+        )
+        
+        // 외출 알림
+        self.scheduleAlarmNotification(
+            content: .init(body: .end),
+            at: outing.time
+        )
+    }
+    
+    private func scheduleAlarmNotification(content: NotificationContent, at date: Date) {
         let notiContent = UNMutableNotificationContent()
         notiContent.title = content.title.value
         notiContent.subtitle = content.subtitle.value

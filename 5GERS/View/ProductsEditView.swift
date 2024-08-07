@@ -165,31 +165,9 @@ extension ProductsEditView {
         
         self.outing.time = self.outing.time.timeFormat
         
-        UserDefaultsManager.shared.setOutingData(self.outing)
-        
-        UserDefaultsManager.shared.setIsTodayAfter(true)
+        UserDefaultsManager.shared.setOuting(self.outing)
         if isInitialMode {
-            for timeInterval in [1800, 3600, 5400, 7200] {
-                NotificationManager.shared.scheduleAlarmNotification(
-                    content: .init(
-                        body: .ready(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(TimeInterval(-timeInterval)))),
-                        categoryIdentifier: .liveActivity
-                    ),
-                    at: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
-                )
-            }
-            
-            NotificationManager.shared.scheduleAlarmNotification(
-                content: .init(
-                    body: .comming(time: outing.time.convertRemainingTime(from: outing.time.addingTimeInterval(-600)))
-                ),
-                at: outing.time.addingTimeInterval(-600)
-            )
-            
-            NotificationManager.shared.scheduleAlarmNotification(
-                content: .init(body: .end),
-                at: outing.time
-            )
+            NotificationManager.shared.scheduleAllAlarmNotification(self.outing)
             
             self.insertToSwiftData(outing)
             
