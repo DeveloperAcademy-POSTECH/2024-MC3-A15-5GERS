@@ -61,6 +61,18 @@ extension Date {
         self > .now ? true : false
     }
     
+    var hour: Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour], from: self)
+        return components.hour ?? 0
+    }
+    
+    var minute: Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.minute], from: self)
+        return components.minute ?? 0
+    }
+    
     func convertRemainingTime(from date: Date) -> String {
         let remain = Int(self.timeIntervalSince(date))
 

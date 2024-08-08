@@ -10,11 +10,38 @@ import SwiftUI
 struct SettingView: View {
     @Binding var outing: Outing
     @State private var isPresentedProductsEditView: Bool = false
+    @State private var isPresentedHistoryView: Bool = false
+    
+    @State private var selectedHour: Int
+    @State private var selectedMinute: Int
+    
+    init(outing: Binding<Outing>) {
+        self._outing = outing
+        
+        let time = outing.wrappedValue.time
+        self._selectedHour = State(initialValue: time.hour)
+        self._selectedMinute = State(initialValue: time.minute)
+    }
     
     var body: some View {
         ZStack {
             LinearGradient.background.ignoresSafeArea()
             VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        self.isPresentedHistoryView = true
+                    } label: {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                            .foregroundStyle(.black)
+                    }
+                }
+                .padding(.vertical, 5)
+                .padding(.horizontal, 15)
+                
                 HStack {
                     Text("외출 시간을\n등록해 주세요")
                         .font(AppFont.title1)
@@ -25,22 +52,27 @@ struct SettingView: View {
                 
                 Spacer().frame(height: 56)
                 
-                Text(outing.time.timeFormat.koreanDate)
+                Text(outing.time.koreanDate)
                     .foregroundStyle(AppColor.gray4)
-                    .font(AppFont.body3)
+                    .font(AppFont.body2)
                 
                 Spacer()
                 
-                DatePicker(
-                    "", 
-                    selection: $outing.time,
-                    displayedComponents: .hourAndMinute
-                )
-                .datePickerStyle(.wheel)
-                .labelsHidden()
-                .colorInvert()
-                .colorMultiply(.black)
-//                CircularPickerView()
+                //                DatePicker(
+                //                    "",
+                //                    selection: $outing.time,
+                //                    displayedComponents: .hourAndMinute
+                //                )
+                //                .datePickerStyle(.wheel)
+                //                .labelsHidden()
+                //                .colorInvert()
+                //                .colorMultiply(.black)
+//                CircularPickerView(selectedHour: $selectedHour, selectedMinute: $selectedMinute)
+                HStack(alignment: .center, spacing: 0) {
+                    CircularPicker(selectedItem: $selectedHour, isReversed: false)
+                    
+                    CircularPicker(selectedItem: $selectedMinute, isReversed: true)
+                }
                 
                 Spacer()
                 
@@ -81,22 +113,54 @@ struct SettingView: View {
                     isInitialMode: true)
             }
         }
-        .toolbar(content: {
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    HistoryView(outing: $outing)
-                } label: {
-                    Image(systemName: "clock.arrow.circlepath")
-                        .foregroundStyle(.black)
-                }
-            }
+        .sheet(isPresented: $isPresentedHistoryView, content: {
+            HistoryView(outing: $outing)
         })
+        .onChange(of: selectedHour) {
+            self.outing.time = convertToTimerFormat()
+        }
+        .onChange(of: selectedMinute) {
+            self.outing.time = convertToTimerFormat()
+        }
+    }
+    
+    private func convertToTimerFormat() -> Date {
+        let calendar = Calendar.current
+        var now = Date()
+        let nowDateComponents = calendar.dateComponents([.hour, .minute], from: now)
+        let nowMinute = (nowDateComponents.hour! * 60) + (nowDateComponents.minute!)
+        
+        let targetMinute = (selectedHour * 60) + (selectedMinute)
+    
+        var components = DateComponents()
+        
+        if nowMinute <= targetMinute {
+            components.year = calendar.component(.year, from: now)
+            components.month = calendar.component(.month, from: now)
+            components.day = calendar.component(.day, from: now)
+            components.hour = selectedHour
+            components.minute = selectedMinute
+        } else {
+            now = now.addingTimeInterval(86400)
+            components.year = calendar.component(.year, from: now)
+            components.month = calendar.component(.month, from: now)
+            components.day = calendar.component(.day, from: now)
+            components.hour = selectedHour
+            components.minute = selectedMinute
+        }
+        
+        return calendar.date(from: components)!
     }
 }
 
-fileprivate struct CircularPickerView: View {
-    @State private var selectedHour: Int = 6
-    @State private var selectedMinute: Int = 30
+struct CircularPickerView: View {
+    @Binding private var selectedHour: Int
+    @Binding private var selectedMinute: Int
+    
+    init(selectedHour: Binding<Int>, selectedMinute: Binding<Int>) {
+        self._selectedHour = selectedHour
+        self._selectedMinute = selectedMinute
+    }
     
     var body: some View {
         ZStack {
@@ -119,13 +183,14 @@ fileprivate struct CircularPicker: View {
     let rowSize: CGSize = CGSize(width: 70, height: 70)
     
     init(selectedItem: Binding<Int>, isReversed: Bool) {
-        self.items = isReversed ? Array(0...23) : Array(0...59)
+        self.items = isReversed ? Array(0...59) : Array(0...23)
         self._selectedItem = selectedItem
         self.isReversed = isReversed
     }
     
     var body: some View {
         GeometryReader { proxyP in
+            
             
             ZStack {
                 Circle()
@@ -166,48 +231,54 @@ fileprivate struct CircularPicker: View {
                             GeometryReader { proxyC in
                                 let rect = proxyC.frame(in: .named("scroll"))
                                 let y = rect.midY
+                                
                                 let curveX = getCurveValue(y, proxyP.size.height) * rowSize.height - rowSize.height
                                 let opacity = getAlphaValue(y, proxyP.size.height)
                                 
-                                Text(items[index % items.count] / 10 < 1 ? "0\(items[index % items.count])" : "\(items[index % items.count])")
-                                    .font(
-                                        .system(
-                                            size: index % items.count == selectedItem ? 30 : 20,
-                                            weight: index % items.count == selectedItem ? .black : .medium
-                                        )
+                                Text(items[index % items.count] / 10 < 1
+                                     ? "0\(items[index % items.count])"
+                                     : "\(items[index % items.count])"
+                                )
+                                .font(
+                                    .system(
+                                        size: index % items.count == selectedItem ? 30 : 20,
+                                        weight: index % items.count == selectedItem ? .black : .medium
                                     )
-                                    .frame(width: rowSize.width, height: rowSize.height)
-                                    .background(Color.clear)
-                                    .opacity(opacity)
-                                    .offset(x: isReversed ? -curveX * 2 : curveX * 2)
-                                    .rotationEffect(
-                                        .degrees(
-                                            isReversed
-                                            ? -getRotateValue(y, proxyP.size.height) * 20
-                                            : getRotateValue(y, proxyP.size.height) * 20),
-                                        anchor: .center
-                                    )
-                                    .id(index)
-                                    .onTapGesture {
-                                        selectedItem = index % items.count
-                                        activeID = index % items.count
-                                    }
+                                )
+                                .frame(width: rowSize.width, height: rowSize.height)
+                                .background(Color.clear)
+                                .opacity(opacity)
+                                .offset(x: isReversed ? -curveX * 2 : curveX * 2)
+                                .rotationEffect(
+                                    .degrees(
+                                        isReversed
+                                        ? -getRotateValue(y, proxyP.size.height) * 20
+                                        : getRotateValue(y, proxyP.size.height) * 20),
+                                    anchor: .center
+                                )
+                                .id(index)
+                                .onTapGesture {
+                                    // selectedItem = index % items.count
+                                    activeID = index
+                                    print(index)
+                                }
                             }
                             .frame(width: rowSize.width, height: rowSize.height)
                         }
                     }
-                    
-                    .offset(x: isReversed ? proxyP.size.width * 0.2 : -proxyP.size.width * 0.2)
                     .scrollTargetLayout()
+                    .offset(
+                        x: isReversed
+                        ? proxyP.size.width * 0.2
+                        : -proxyP.size.width * 0.2
+                    )
                 }
                 .safeAreaPadding(.vertical, (proxyP.size.height - 70) / 2)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned)
                 .scrollPosition(id: $activeID)
                 .coordinateSpace(name: "scroll")
-                
             }
-            
         }
         .onAppear {
             self.activeID = selectedItem + (items.count * 50)

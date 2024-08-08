@@ -17,7 +17,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        VStack {
             if isAfterToday { TimerView(outing: $outing) }
             else { SettingView(outing: $outing) }
         }
