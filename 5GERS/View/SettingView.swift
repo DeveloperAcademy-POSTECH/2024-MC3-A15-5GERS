@@ -62,6 +62,7 @@ struct SettingView: View {
                     CircularPicker(selectedItem: $selectedHour, isReversed: false)
                     Text(":")
                         .font(AppFont.body1)
+                        .foregroundStyle(AppColor.black)
                         .offset(y: -3)
                     CircularPicker(selectedItem: $selectedMinute, isReversed: true)
                 }
@@ -182,11 +183,9 @@ fileprivate struct CircularPicker: View {
     
     var body: some View {
         GeometryReader { proxyP in
-            
-            
             ZStack {
                 Circle()
-                    .fill(Color.gray.opacity(0.3))
+                    .fill(AppColor.gray3)
                     .frame(width: proxyP.size.height, height: proxyP.size.height)
                     .position(
                         x: isReversed
@@ -194,27 +193,41 @@ fileprivate struct CircularPicker: View {
                         : (proxyP.size.width / 2) - proxyP.size.height / 3,
                         y: proxyP.size.height / 2
                     )
+                    .shadow(
+                        color: .black.opacity(0.3),
+                        radius: 15, x: 0.0, y: 2
+                    )
                     .overlay {
-                        Circle()
-                            .fill(Color.blue.opacity(0.1))
-                            .frame(width: proxyP.size.height * 0.7, height: proxyP.size.height * 0.7)
-                            .position(
-                                x: isReversed
-                                ? (proxyP.size.width / 2) + proxyP.size.height / 3
-                                : (proxyP.size.width / 2) - proxyP.size.height / 3,
-                                y: proxyP.size.height / 2
-                            )
-                            .overlay {
-                                Circle()
-                                    .fill(Color.white.opacity(0.5))
-                                    .frame(width: proxyP.size.height * 0.5, height: proxyP.size.height * 0.5)
-                                    .position(
-                                        x: isReversed
-                                        ? (proxyP.size.width / 2) + proxyP.size.height / 3
-                                        : (proxyP.size.width / 2) - proxyP.size.height / 3,
-                                        y: proxyP.size.height / 2
-                                    )
-                            }
+                        ZStack {
+                            Circle()
+                                .fill(AppColor.gray4.opacity(0.8))
+                                .frame(width: proxyP.size.height * 0.7, height: proxyP.size.height * 0.7)
+                            
+                            Image(.circleDot)
+                                .resizable()
+                                .frame(width: proxyP.size.height * 0.85, height: proxyP.size.height * 0.85)
+                        }
+                        .position(
+                            x: isReversed
+                            ? (proxyP.size.width / 2) + proxyP.size.height / 3
+                            : (proxyP.size.width / 2) - proxyP.size.height / 3,
+                            y: proxyP.size.height / 2
+                        )
+                        .shadow(
+                            color: .black.opacity(0.3),
+                            radius: 10, x: 0.0, y: 0
+                        )
+                        .overlay {
+                            Circle()
+                                .fill(AppColor.white1.opacity(0.5))
+                                .frame(width: proxyP.size.height * 0.5, height: proxyP.size.height * 0.5)
+                                .position(
+                                    x: isReversed
+                                    ? (proxyP.size.width / 2) + proxyP.size.height / 3
+                                    : (proxyP.size.width / 2) - proxyP.size.height / 3,
+                                    y: proxyP.size.height / 2
+                                )
+                        }
                     }
                 
                 ScrollView {
@@ -237,8 +250,8 @@ fileprivate struct CircularPicker: View {
                                         weight: index % items.count == selectedItem ? .black : .medium
                                     )
                                 )
+                                .foregroundStyle(AppColor.black)
                                 .frame(width: rowSize.width, height: rowSize.height)
-                                .background(Color.clear)
                                 .opacity(opacity)
                                 .offset(x: isReversed ? -curveX * 2 : curveX * 2)
                                 .rotationEffect(
