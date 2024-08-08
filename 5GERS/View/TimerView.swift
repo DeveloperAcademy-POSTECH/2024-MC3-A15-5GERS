@@ -17,16 +17,16 @@ struct TimerView: View {
     @State private var activityButtonState: String = ""
     
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    let totalRemainTimerValue: Int = 7200
-    @State private var currentRemainTimerValue: Int = 0 {
+    let totalRemainTimerValue: Double = 7200
+    @State private var currentRemainTimerValue: Double = 0 {
         didSet {
-            let minus = Double(totalRemainTimerValue - min(currentRemainTimerValue, totalRemainTimerValue))
-            let div = minus / Double(totalRemainTimerValue)
+            let minus = totalRemainTimerValue - min(currentRemainTimerValue, totalRemainTimerValue)
+            let div = minus / totalRemainTimerValue
             
-            remainTimerDegreeValue = Int(div * 360)
+            remainTimerDegreeValue = div * 360
         }
     }
-    @State private var remainTimerDegreeValue: Int = 0
+    @State private var remainTimerDegreeValue: Double = 0
     
     @Binding var outing: Outing
     
@@ -34,7 +34,7 @@ struct TimerView: View {
         self._outing = outing
         
         let value = outing.wrappedValue.time.timeIntervalSinceNow
-        self._currentRemainTimerValue = State(initialValue: Int(value))
+        self._currentRemainTimerValue = State(initialValue: value)
     }
     
     var body: some View {
@@ -62,7 +62,6 @@ struct TimerView: View {
                         })
                     }
                     .padding(.vertical, 5)
-                    .padding(.horizontal, 15)
                     
                     HStack(spacing: 0) {
                         Text("\(outing.time.koreanTime)")
@@ -79,6 +78,9 @@ struct TimerView: View {
                         .font(AppFont.largeTitle)
                         .foregroundStyle(AppColor.black)
                     
+                    Text("남았습니다.")
+                        .font(AppFont.body3)
+                        .foregroundStyle(AppColor.gray4)
                     
                     CircularProgressView(
                         outing: outing,
@@ -113,7 +115,6 @@ struct TimerView: View {
                                         Image(.logoIcon)
                                     }
                             }
-//                            .padding(5)
                             .background(AppColor.blue)
                             .clipShape(RoundedRectangle(cornerRadius: 35))
                             
@@ -185,7 +186,7 @@ struct TimerView: View {
             }
         }
         .onReceive(timer) { _ in
-            let currentValue = Int(outing.time.timeIntervalSinceNow)
+            let currentValue = outing.time.timeIntervalSinceNow
             self.currentRemainTimerValue = currentValue
             if currentValue < 0 {
                 self.resetOutingData()
@@ -197,7 +198,7 @@ struct TimerView: View {
 
 fileprivate struct CircularProgressView: View {
     
-    @Binding private var remainTimerDegreeValue: Int
+    @Binding private var remainTimerDegreeValue: Double
     
     private let proxy: GeometryProxy
     private let outing: Outing
@@ -205,7 +206,7 @@ fileprivate struct CircularProgressView: View {
     init(
         outing: Outing,
         proxy: GeometryProxy,
-        remainTimerDegreeValue: Binding<Int>
+        remainTimerDegreeValue: Binding<Double>
     ) {
         self.outing = outing
         self.proxy = proxy
@@ -216,86 +217,89 @@ fileprivate struct CircularProgressView: View {
         
         let width = proxy.size.width
         ZStack {
-            Image(.timerBackground)
-                .resizable()
-                .frame(width: width, height: width)
-                .shadow(
-                    color: AppColor.black.opacity(0.1),
-                    radius: 20, x: 18, y: 18
-                )
-                .shadow(
-                    color: AppColor.gray1,
-                    radius: 20, x: -18, y: -18
-                )
-                .overlay {
-                    ZStack {
-                        Path { path in
-                            
-                            // 포인터 이동
-                            path.move(
-                                to: CGPoint(
-                                    x: width / 2,
-                                    y: width / 2
-                                )
-                            )
-                            
-                            path.addArc(
-                                center: .init(
-                                    x: width / 2,
-                                    y: width / 2
-                                ),
-                                radius: CGFloat(width / 2 - 30),
-                                startAngle: .degrees(270),
-                                endAngle: .degrees(Double(remainTimerDegreeValue - 90)),
-                                clockwise: true
-                            )
-                            
-                        }
-                        .fill(.white)
+            ZStack {
+                Circle()
+                    .frame(width: width * 0.9, height: width * 0.9)
+                    .foregroundStyle(AppColor.gray3)
+                    .shadow(
+                        color: AppColor.black.opacity(0.3),
+                        radius: 10, x: 5, y: 5
+                    )
+                
+                Image(.circleDot)
+                    .resizable()
+                    .frame(width: width, height: width)
+            }
+            .overlay {
+                ZStack {
+                    Path { path in
                         
-                        Path { path in
-                            
-                            // 포인터 이동
-                            path.move(
-                                to: CGPoint(
-                                    x: width / 2,
-                                    y: width / 2
-                                )
+                        // 포인터 이동
+                        path.move(
+                            to: CGPoint(
+                                x: width / 2,
+                                y: width / 2
                             )
-                            
-                            path.addArc(
-                                center: .init(
-                                    x: width / 2,
-                                    y: width / 2
-                                ),
-                                radius: CGFloat(width / 2 - 30),
-                                startAngle: .degrees(270),
-                                endAngle: .degrees(Double(remainTimerDegreeValue - 90)),
-                                clockwise: true
-                            )
-                            
-                        }
-                        .fill(
-                            AngularGradient(
-                                colors: remainTimerDegreeValue < 270
-                                ? [AppColor.blue.opacity(0.3), AppColor.blue]
-                                : [AppColor.red.opacity(0.3), AppColor.red],
-                                center: .center,
-                                startAngle: .degrees(-90),
-                                endAngle: .degrees(270)
-                            )
-                            
+                        )
+                        
+                        path.addArc(
+                            center: .init(
+                                x: width / 2,
+                                y: width / 2
+                            ),
+                            radius: CGFloat(width / 2 - 35),
+                            startAngle: .degrees(270),
+                            endAngle: .degrees(Double(remainTimerDegreeValue - 90)),
+                            clockwise: true
                         )
                         
                     }
+                    .fill(.white)
+                    
+                    Path { path in
+                        
+                        // 포인터 이동
+                        path.move(
+                            to: CGPoint(
+                                x: width / 2,
+                                y: width / 2
+                            )
+                        )
+                        
+                        path.addArc(
+                            center: .init(
+                                x: width / 2,
+                                y: width / 2
+                            ),
+                            radius: CGFloat(width / 2 - 35),
+                            startAngle: .degrees(270),
+                            endAngle: .degrees(Double(remainTimerDegreeValue - 90)),
+                            clockwise: true
+                        )
+                        
+                    }
+                    .fill(
+                        AngularGradient(
+                            colors: remainTimerDegreeValue < 270
+                            ? [AppColor.angularBlueStart, AppColor.angularBlueEnd]
+                            : [AppColor.angularRedStart, AppColor.angularRedEnd],
+                            center: .center,
+                            startAngle: .degrees(-90),
+                            endAngle: .degrees(270)
+                        )
+                        
+                    )
+                    
                 }
+            }
             
             Circle()
                 .background(BlurView(style: .systemThinMaterialLight))
+                .background(.clear)
                 .foregroundColor(AppColor.white1.opacity(0.5))
-                .frame(width: width * (3/5), height: width * (3/5))
-                .cornerRadius(width * (3/5) / 2)
-                .shadow(radius: 3)
+                .frame(width: width * 0.6, height: width * 0.6)
+                .cornerRadius(width * 0.6 / 2)
+                .shadow(color: .white.opacity(0.3), radius: 20, x: 0, y: 0)
         }
         
     }

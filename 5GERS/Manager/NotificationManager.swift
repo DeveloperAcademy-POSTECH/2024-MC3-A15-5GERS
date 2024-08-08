@@ -105,7 +105,7 @@ final class NotificationManager {
             self.scheduleAlarmNotification(
                 content: .init(
                     body: .ready(
-                        time: outing.time.convertRemainingTime(
+                        time: outing.time.convertToRemainingTime(
                             from: outing.time.addingTimeInterval(TimeInterval(-timeInterval))
                         )
                     ),
@@ -119,7 +119,7 @@ final class NotificationManager {
         self.scheduleAlarmNotification(
             content: .init(
                 body: .comming(
-                    time: outing.time.convertRemainingTime(
+                    time: outing.time.convertToRemainingTime(
                         from: outing.time.addingTimeInterval(-600)
                     )
                 )

@@ -35,12 +35,13 @@ struct HistoryView : View {
                         .foregroundStyle(AppColor.black)
                 }
                 .padding(.vertical)
+                .padding(.horizontal, 24)
                 
                 
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         ForEach(
-                            Array(outings.enumerated()),
+                            Array(outings.sorted { $0.time.totalMinutes < $1.time.totalMinutes }.enumerated()),
                             id: \.element
                         ) { idx, outing in
                             Button(
@@ -79,6 +80,7 @@ struct HistoryView : View {
                         
                         Spacer()
                     }
+                    .padding(.horizontal, 24)
                     
                     .alert(
                         "이대로 외출 시간을 설정하시겠습니까?",
@@ -99,8 +101,14 @@ struct HistoryView : View {
                             }
                         }
                 }
+                
             }
-            .padding(.horizontal, 24)
+            
+        }
+        .onAppear {
+            let datas = outings.sorted { $0.time.totalMinutes < $1.time.totalMinutes }
+            datas.forEach { print($0.time) }
+            
         }
     }
 }

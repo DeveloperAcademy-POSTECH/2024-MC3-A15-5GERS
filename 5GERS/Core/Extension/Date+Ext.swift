@@ -73,7 +73,13 @@ extension Date {
         return components.minute ?? 0
     }
     
-    func convertRemainingTime(from date: Date) -> String {
+    var totalMinutes: Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: self)
+        return components.hour! * components.minute!
+    }
+    
+    func convertToRemainingTime(from date: Date) -> String {
         let remain = Int(self.timeIntervalSince(date))
 
         if remain < 3600 {

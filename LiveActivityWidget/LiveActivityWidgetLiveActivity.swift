@@ -53,8 +53,6 @@ struct LiveActivityWidgetLiveActivity: Widget {
                         .labelsHidden()
                         .scaleEffect(y: 1.5)
                 }
-                
-                    
             }
             .padding(20)
             .activityBackgroundTint(AppColor.black.opacity(0.8))
@@ -64,14 +62,15 @@ struct LiveActivityWidgetLiveActivity: Widget {
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    HStack {
-                        Button(intent: LiveActivityDeleteIntent()) {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                        }
+                    Button(intent: LiveActivityDeleteIntent()) {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .foregroundStyle(AppColor.blue)
+                            .background(AppColor.white1)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
                     }
-                    
+                    .buttonStyle(PlainButtonStyle())
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     VStack {

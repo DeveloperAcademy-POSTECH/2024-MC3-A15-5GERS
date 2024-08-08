@@ -19,6 +19,12 @@ struct AppColor {
     static let gray5 = Color(.gray5)
     static let white1 = Color(.white1)
     static let white2 = Color(.white2)
+    
+    static let angularRedStart = Color(.angularGradientRedStart)
+    static let angularRedEnd = Color(.angularGradientRedEnd)
+    static let angularBlueStart = Color(.angularGradientBlueStart)
+    static let angularBlueEnd = Color(.angularGradientBlueEnd)
+    
 }
 
 extension LinearGradient {
