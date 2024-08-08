@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     @AppStorage(UserDefaultsKey.isTodayAfter) private var isAfterToday: Bool = false
     @State private var outing: Outing = .init(time: .now, products: [])
@@ -19,7 +20,7 @@ struct HomeView: View {
     var body: some View {
         VStack {
             if isAfterToday { TimerView(outing: $outing) }
-            else { SettingView(outing: $outing) }
+            else { SettingView(outing: outing) }
         }
         .onAppear {
             self.InitData()

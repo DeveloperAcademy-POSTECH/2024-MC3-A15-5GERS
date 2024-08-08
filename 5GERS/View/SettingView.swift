@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct SettingView: View {
-    @Binding var outing: Outing
+    var outing: Outing
     @State private var isPresentedProductsEditView: Bool = false
     @State private var isPresentedHistoryView: Bool = false
     
     @State private var selectedHour: Int
     @State private var selectedMinute: Int
     
-    init(outing: Binding<Outing>) {
-        self._outing = outing
+    init(outing: Outing) {
+        self.outing = outing
         
-        let time = outing.wrappedValue.time
+        let time = outing.time
         self._selectedHour = State(initialValue: time.hour)
         self._selectedMinute = State(initialValue: time.minute)
     }
@@ -58,19 +58,11 @@ struct SettingView: View {
                 
                 Spacer()
                 
-                //                DatePicker(
-                //                    "",
-                //                    selection: $outing.time,
-                //                    displayedComponents: .hourAndMinute
-                //                )
-                //                .datePickerStyle(.wheel)
-                //                .labelsHidden()
-                //                .colorInvert()
-                //                .colorMultiply(.black)
-//                CircularPickerView(selectedHour: $selectedHour, selectedMinute: $selectedMinute)
                 HStack(alignment: .center, spacing: 0) {
                     CircularPicker(selectedItem: $selectedHour, isReversed: false)
-                    
+                    Text(":")
+                        .font(AppFont.body1)
+                        .offset(y: -3)
                     CircularPicker(selectedItem: $selectedMinute, isReversed: true)
                 }
                 
@@ -108,13 +100,13 @@ struct SettingView: View {
             
             if isPresentedProductsEditView {
                 ProductsEditView(
-                    outing: $outing,
+                    outing: outing,
                     isPresentedProductsEditView: $isPresentedProductsEditView,
                     isInitialMode: true)
             }
         }
         .sheet(isPresented: $isPresentedHistoryView, content: {
-            HistoryView(outing: $outing)
+            HistoryView(outing: outing)
         })
         .onChange(of: selectedHour) {
             self.outing.time = convertToTimerFormat()
@@ -153,7 +145,7 @@ struct SettingView: View {
     }
 }
 
-struct CircularPickerView: View {
+fileprivate struct CircularPickerView: View {
     @Binding private var selectedHour: Int
     @Binding private var selectedMinute: Int
     
@@ -269,8 +261,8 @@ fileprivate struct CircularPicker: View {
                     .scrollTargetLayout()
                     .offset(
                         x: isReversed
-                        ? proxyP.size.width * 0.2
-                        : -proxyP.size.width * 0.2
+                        ? proxyP.size.width * 0.15
+                        : -proxyP.size.width * 0.15
                     )
                 }
                 .safeAreaPadding(.vertical, (proxyP.size.height - 70) / 2)
@@ -309,5 +301,5 @@ fileprivate struct CircularPicker: View {
 }
 
 #Preview {
-    SettingView(outing: .constant(.init(time: .now, products: [])))
+    SettingView(outing: Outing(time: .now, products: []))
 }

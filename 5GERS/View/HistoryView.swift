@@ -15,7 +15,7 @@ struct HistoryView : View {
     @State private var isDisplaySetAlert: Bool = false
     @State private var selectedOutingIndex: Int = 0
     
-    @Binding var outing: Outing
+    var outing: Outing
     
     var body: some View {
         
@@ -91,9 +91,10 @@ struct HistoryView : View {
 
 extension HistoryView {
     private func setOuting(_ outing: OutingSD) {
+        let new = outing.toEntity()
         
-        
-        self.outing = outing.toEntity()
+        self.outing.time = new.time
+        self.outing.products = new.products
 
         UserDefaultsManager.shared.setOuting(self.outing)
         NotificationManager.shared.scheduleAllAlarmNotification(self.outing)
@@ -101,5 +102,5 @@ extension HistoryView {
 }
 
 #Preview {
-    HistoryView(outing: .constant(.init(time: .now, products: [])))
+    HistoryView(outing: .init(time: .now, products: []))
 }

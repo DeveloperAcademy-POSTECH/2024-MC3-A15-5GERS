@@ -43,6 +43,27 @@ struct TimerView: View {
             
             GeometryReader { proxy in
                 VStack {
+                    HStack {
+                        Button(action: {
+                            isDisplayDeleteAlert = true
+                        }, label: {
+                            Text("취소")
+                                .foregroundStyle(AppColor.red)
+                        })
+                        Spacer()
+                        Button(action: {
+                            
+                        }, label: {
+                            Image(systemName: "info.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 25, height: 25)
+                                .foregroundStyle(AppColor.blue)
+                        })
+                    }
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 15)
+                    
                     HStack(spacing: 0) {
                         Text("\(outing.time.koreanTime)")
                             .foregroundStyle(AppColor.blue)
@@ -135,32 +156,12 @@ struct TimerView: View {
             
             if self.isPresentedProductsEditView {
                 ProductsEditView(
-                    outing: $outing,
+                    outing: outing,
                     isPresentedProductsEditView: $isPresentedProductsEditView,
                     isInitialMode: false
                 )
             }
         }
-        .toolbar(content: {
-            ToolbarItem(placement: .topBarLeading) {
-                
-                Button(action: {
-                    isDisplayDeleteAlert = true
-                }, label: {
-                    Text("취소")
-                        .foregroundStyle(AppColor.red)
-                })
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    
-                }, label: {
-                    Image(systemName: "info.circle")
-                        .foregroundStyle(AppColor.blue)
-                })
-            }
-            
-        })
         .onChange(of: scenePhase) { old, new in
             if (old == .background) && (new == .inactive) {
                 if isTodayAfter && !outing.time.isAfterToday {

@@ -18,7 +18,7 @@ struct TextFieldItem: Identifiable {
 struct ProductsEditView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @Binding private var outing: Outing
+    private var outing: Outing
     @Binding private var isPresentedProductsEditView: Bool
     
     @State private var textfieldItems: [TextFieldItem] = []
@@ -28,11 +28,11 @@ struct ProductsEditView: View {
     let isInitialMode: Bool
     
     init(
-        outing: Binding<Outing>,
+        outing: Outing,
         isPresentedProductsEditView: Binding<Bool>,
         isInitialMode: Bool
     ) {
-        self._outing = outing
+        self.outing = outing
         self._isPresentedProductsEditView = isPresentedProductsEditView
         self.isInitialMode = isInitialMode
         
@@ -209,7 +209,7 @@ extension ProductsEditView {
 
 #Preview {
     ProductsEditView(
-        outing: .constant(.init(time: .now, products: [])),
+        outing: .init(time: .now, products: []),
         isPresentedProductsEditView: .constant(true),
         isInitialMode: true
     )

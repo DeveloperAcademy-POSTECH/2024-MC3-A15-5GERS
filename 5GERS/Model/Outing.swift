@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct Outing: Codable, Hashable {
-    var time: Date
-    var products: [String]
+@Observable
+class Outing: Codable {
+    var time: Date = .now
+    var products: [String] = []
+    
+    init(time: Date, products: [String]) {
+        self.time = time
+        self.products = products
+    }
 }
