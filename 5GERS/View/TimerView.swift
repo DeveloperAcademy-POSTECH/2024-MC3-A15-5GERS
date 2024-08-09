@@ -307,11 +307,22 @@ fileprivate struct CircularProgressView: View {
             
             Circle()
                 .background(BlurView(style: .systemThinMaterialLight))
-                .background(.clear)
-                .foregroundColor(AppColor.white1.opacity(0.5))
+
+//                .fill(AppColor.white1.opacity(0.5))
+                .foregroundStyle(AppColor.white1.opacity(0.5))
+//                .foregroundStyle(.clear)
+                .blur(radius: 20)
                 .frame(width: width * 0.6, height: width * 0.6)
+                
                 .cornerRadius(width * 0.6 / 2)
-                .shadow(color: .white.opacity(0.3), radius: 20, x: 0, y: 0)
+                .shadow(
+                    color: AppColor.white1.opacity(0.3),
+                    radius: 20, x: 0, y: 0
+                )
+//            AppColor.white1.opacity(0.5)
+//                .frame(width: width * 0.6, height: width * 0.6)
+//                .clipShape(Circle())
+//                .blur(radius: 5)
         }
         
     }

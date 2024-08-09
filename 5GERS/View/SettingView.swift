@@ -313,6 +313,7 @@ fileprivate struct CircularPicker: View {
         }
         .onChange(of: activeID) { oldValue, newValue in
             selectedItem = (activeID ?? 0) % items.count
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         }
         
     }
