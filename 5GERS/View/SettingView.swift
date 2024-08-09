@@ -185,8 +185,21 @@ fileprivate struct CircularPicker: View {
         GeometryReader { proxyP in
             ZStack {
                 Circle()
-                    .fill(AppColor.gray3)
+                    .foregroundStyle(
+                        AppColor.lightBlue
+                            .shadow(
+                                .inner(
+                                    color: AppColor.white1,
+                                    radius: 15, x: -5, y: -5)
+                            )
+                            .shadow(
+                                .inner(
+                                    color: AppColor.black.opacity(0.1),
+                                    radius: 15, x: 5, y: 5)
+                            )
+                    )
                     .frame(width: proxyP.size.height, height: proxyP.size.height)
+                    .modifier(InnerShadowModifier(radius: proxyP.size.height))
                     .position(
                         x: isReversed
                         ? (proxyP.size.width / 2) + proxyP.size.height / 3
@@ -194,13 +207,22 @@ fileprivate struct CircularPicker: View {
                         y: proxyP.size.height / 2
                     )
                     .shadow(
-                        color: .black.opacity(0.3),
-                        radius: 15, x: 0.0, y: 2
+                        color: .black.opacity(0.1),
+                        radius: 15, x: 5, y: 5
                     )
+                    
                     .overlay {
                         ZStack {
                             Circle()
-                                .fill(AppColor.gray4.opacity(0.8))
+                                .foregroundStyle(
+                                    LinearGradient(
+                                        colors: [AppColor.lightBlue, AppColor.midGray],
+                                        startPoint: .center,
+                                        endPoint: isReversed
+                                        ? .bottomLeading
+                                        : .bottomTrailing
+                                    )
+                                )
                                 .frame(width: proxyP.size.height * 0.7, height: proxyP.size.height * 0.7)
                             
                             Image(.circleDot)
@@ -219,7 +241,7 @@ fileprivate struct CircularPicker: View {
                         )
                         .overlay {
                             Circle()
-                                .fill(AppColor.white1.opacity(0.5))
+                                .fill(AppColor.lightBlue)
                                 .frame(width: proxyP.size.height * 0.5, height: proxyP.size.height * 0.5)
                                 .position(
                                     x: isReversed
@@ -227,6 +249,7 @@ fileprivate struct CircularPicker: View {
                                     : (proxyP.size.width / 2) - proxyP.size.height / 3,
                                     y: proxyP.size.height / 2
                                 )
+                                .shadow(color: AppColor.midGray, radius: 3)
                         }
                     }
                 

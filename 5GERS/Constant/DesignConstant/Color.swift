@@ -10,8 +10,11 @@ import SwiftUI
 
 struct AppColor {
     static let black = Color(.blackMain)
+    static let dark = Color(.dark)
     static let blue = Color(.blueMain)
+    static let lightBlue = Color(.lightBlue)
     static let red = Color(.redMain)
+    static let midGray = Color(.midGray)
     static let gray1 = Color(.gray1)
     static let gray2 = Color(.gray2)
     static let gray3 = Color(.gray3)

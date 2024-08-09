@@ -220,12 +220,24 @@ fileprivate struct CircularProgressView: View {
             ZStack {
                 Circle()
                     .frame(width: width * 0.9, height: width * 0.9)
-                    .foregroundStyle(AppColor.gray3)
+                    .foregroundStyle(
+                        AppColor.lightBlue
+                            .shadow(
+                                .inner(
+                                    color: AppColor.white1,
+                                    radius: 15, x: -5, y: -5)
+                            )
+                            .shadow(
+                                .inner(
+                                    color: AppColor.black.opacity(0.1),
+                                    radius: 15, x: 5, y: 5)
+                            )
+                    )
                     .shadow(
                         color: AppColor.black.opacity(0.3),
                         radius: 10, x: 5, y: 5
                     )
-                
+                    .modifier(InnerShadowModifier(radius: width * 0.45))
                 Image(.circleDot)
                     .resizable()
                     .frame(width: width, height: width)
@@ -307,24 +319,24 @@ fileprivate struct CircularProgressView: View {
 
 fileprivate struct BlurView: UIViewRepresentable {
     var style: UIBlurEffect.Style
-
+    
     func makeUIView(context: Context) -> some UIView {
         let view = UIView(frame: .zero)
         view.backgroundColor = .clear
-
+        
         let blurEffect = UIBlurEffect(style: style)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blurView)
-
+        
         NSLayoutConstraint.activate([
             blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
             blurView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
-
+        
         return view
     }
-
+    
     func updateUIView(_ uiView: UIViewType, context: Context) {}
 }
 
@@ -358,6 +370,20 @@ extension TimerView {
                 self.activityButtonState = "이미 실시간 현황을 활성화 하였습니다."
             }
         }
+    }
+}
+
+struct InnerShadowModifier: ViewModifier {
+    var radius: CGFloat
+    
+    func body(content:Content) -> some View {
+        content
+            .overlay(
+                RoundedRectangle(cornerRadius: radius)
+                    .stroke(AppColor.white1, lineWidth :1)
+                    .shadow(color: AppColor.dark, radius: 8, x: 7, y: 7)
+                    .shadow(color: AppColor.white1, radius : 8, x: -7, y: -7)
+            )
     }
 }
 
