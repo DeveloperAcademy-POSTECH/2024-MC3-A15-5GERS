@@ -57,6 +57,12 @@
 		5777738D2C5A81F4002D7370 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773822C5A5957002D7370 /* Array+Ext.swift */; };
 		57D273162C6A04FF00C52DA6 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D273152C6A04FF00C52DA6 /* BlurView.swift */; };
 		57D273192C6A055000C52DA6 /* InnerShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D273182C6A055000C52DA6 /* InnerShadowModifier.swift */; };
+		57D2731B2C6A266400C52DA6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D2731A2C6A266400C52DA6 /* OnboardingView.swift */; };
+		57D273222C6A2EF200C52DA6 /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D273212C6A2EF200C52DA6 /* GifImage.swift */; };
+		57D273262C6A31F500C52DA6 /* onboarding-product.gif in Resources */ = {isa = PBXBuildFile; fileRef = 57D273232C6A31F500C52DA6 /* onboarding-product.gif */; };
+		57D273272C6A31F500C52DA6 /* onboarding-liveactivity.gif in Resources */ = {isa = PBXBuildFile; fileRef = 57D273242C6A31F500C52DA6 /* onboarding-liveactivity.gif */; };
+		57D273282C6A31F500C52DA6 /* onboarding-start.gif in Resources */ = {isa = PBXBuildFile; fileRef = 57D273252C6A31F500C52DA6 /* onboarding-start.gif */; };
+		57D2732A2C6A34C300C52DA6 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D273292C6A34C300C52DA6 /* Onboarding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +135,12 @@
 		5777738A2C5A80F5002D7370 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		57D273152C6A04FF00C52DA6 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		57D273182C6A055000C52DA6 /* InnerShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerShadowModifier.swift; sourceTree = "<group>"; };
+		57D2731A2C6A266400C52DA6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		57D273212C6A2EF200C52DA6 /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
+		57D273232C6A31F500C52DA6 /* onboarding-product.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "onboarding-product.gif"; sourceTree = "<group>"; };
+		57D273242C6A31F500C52DA6 /* onboarding-liveactivity.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "onboarding-liveactivity.gif"; sourceTree = "<group>"; };
+		57D273252C6A31F500C52DA6 /* onboarding-start.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "onboarding-start.gif"; sourceTree = "<group>"; };
+		57D273292C6A34C300C52DA6 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +218,7 @@
 		571D390A2C57A95200CA22E4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				57D2731C2C6A2AB000C52DA6 /* Gif */,
 				577773672C5926CF002D7370 /* Font */,
 				571D38FF2C57A69800CA22E4 /* Assets.xcassets */,
 				577773652C5926C7002D7370 /* Color.xcassets */,
@@ -218,6 +231,7 @@
 			children = (
 				57D273172C6A054200C52DA6 /* Modifier */,
 				57D273142C6A04F200C52DA6 /* Component */,
+				57D2731A2C6A266400C52DA6 /* OnboardingView.swift */,
 				5777735B2C58C548002D7370 /* HomeView.swift */,
 				5777735D2C59103E002D7370 /* SettingView.swift */,
 				571781692C5E5BC30088E0D3 /* HistoryView.swift */,
@@ -286,6 +300,7 @@
 			children = (
 				571D391D2C57AAD000CA22E4 /* Outing.swift */,
 				577773552C587F95002D7370 /* Outing+SwiftData.swift */,
+				57D273292C6A34C300C52DA6 /* Onboarding.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -350,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				57D273152C6A04FF00C52DA6 /* BlurView.swift */,
+				57D273212C6A2EF200C52DA6 /* GifImage.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -360,6 +376,16 @@
 				57D273182C6A055000C52DA6 /* InnerShadowModifier.swift */,
 			);
 			path = Modifier;
+			sourceTree = "<group>";
+		};
+		57D2731C2C6A2AB000C52DA6 /* Gif */ = {
+			isa = PBXGroup;
+			children = (
+				57D273242C6A31F500C52DA6 /* onboarding-liveactivity.gif */,
+				57D273232C6A31F500C52DA6 /* onboarding-product.gif */,
+				57D273252C6A31F500C52DA6 /* onboarding-start.gif */,
+			);
+			path = Gif;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,12 +469,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57D273272C6A31F500C52DA6 /* onboarding-liveactivity.gif in Resources */,
 				571D39032C57A69800CA22E4 /* Preview Assets.xcassets in Resources */,
 				577773722C59272D002D7370 /* Pretendard-Thin.otf in Resources */,
+				57D273262C6A31F500C52DA6 /* onboarding-product.gif in Resources */,
 				577773752C59272D002D7370 /* Pretendard-ExtraBold.otf in Resources */,
 				577773742C59272D002D7370 /* Pretendard-Bold.otf in Resources */,
 				577773762C59272D002D7370 /* Pretendard-Black.otf in Resources */,
 				571D39002C57A69800CA22E4 /* Assets.xcassets in Resources */,
+				57D273282C6A31F500C52DA6 /* onboarding-start.gif in Resources */,
 				577773712C59272D002D7370 /* Pretendard-ExtraLight.otf in Resources */,
 				577773772C59272D002D7370 /* Pretendard-SemiBold.otf in Resources */,
 				577773782C59272D002D7370 /* Pretendard-Regular.otf in Resources */,
@@ -476,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57D2732A2C6A34C300C52DA6 /* Onboarding.swift in Sources */,
 				5717816A2C5E5BC30088E0D3 /* HistoryView.swift in Sources */,
 				577773602C591044002D7370 /* TimerView.swift in Sources */,
 				57D273162C6A04FF00C52DA6 /* BlurView.swift in Sources */,
@@ -484,6 +514,7 @@
 				571781682C5DF8860088E0D3 /* LiveActivityDeleteIntent.swift in Sources */,
 				5777734A2C57B4B7002D7370 /* LiveActivityWidgetLiveActivity.swift in Sources */,
 				577773862C5A6457002D7370 /* UserDefaultsKey.swift in Sources */,
+				57D273222C6A2EF200C52DA6 /* GifImage.swift in Sources */,
 				577773522C5878F5002D7370 /* UserDefaultsManager.swift in Sources */,
 				571D39162C57AA8300CA22E4 /* CustomShortcuts.swift in Sources */,
 				577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */,
@@ -494,6 +525,7 @@
 				571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */,
 				571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */,
 				571D38FC2C57A69600CA22E4 /* _GERSApp.swift in Sources */,
+				57D2731B2C6A266400C52DA6 /* OnboardingView.swift in Sources */,
 				577773832C5A5957002D7370 /* Array+Ext.swift in Sources */,
 				5777734C2C57C0C1002D7370 /* AppDelegate.swift in Sources */,
 				5777735C2C58C548002D7370 /* HomeView.swift in Sources */,
