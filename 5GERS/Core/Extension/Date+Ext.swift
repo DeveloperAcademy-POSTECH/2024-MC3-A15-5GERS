@@ -37,8 +37,10 @@ extension Date {
         let targetMinute = (targetDateComponents.hour! * 60) + (targetDateComponents.minute!)
     
         var components = DateComponents()
+      
+
         
-        if nowMinute <= targetMinute {
+        if nowMinute < targetMinute {
             components.year = calendar.component(.year, from: now)
             components.month = calendar.component(.month, from: now)
             components.day = calendar.component(.day, from: now)

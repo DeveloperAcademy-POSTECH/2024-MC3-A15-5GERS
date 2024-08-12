@@ -52,7 +52,7 @@ struct SettingView: View {
         
         Spacer().frame(height: 36)
         
-        Text(outing.time.koreanDate)
+        Text(outing.time.timeFormat.koreanDate)
           .foregroundStyle(AppColor.gray4)
           .font(AppFont.body2)
         Spacer().frame(height: 10)
@@ -132,7 +132,7 @@ struct SettingView: View {
     
     var components = DateComponents()
     
-    if nowMinute <= targetMinute {
+    if nowMinute < targetMinute {
       components.year = calendar.component(.year, from: now)
       components.month = calendar.component(.month, from: now)
       components.day = calendar.component(.day, from: now)
