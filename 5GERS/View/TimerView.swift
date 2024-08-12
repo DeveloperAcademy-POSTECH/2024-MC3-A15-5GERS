@@ -50,7 +50,7 @@ struct TimerView: View {
             }, label: {
               Text("취소")
                 .foregroundStyle(AppColor.red)
-                .font(.custom(Pretendard.regular, size: 20))
+                .font(.custom(Pretendard.regular, size: 18))
             })
             Spacer()
             Button(action: {
@@ -107,21 +107,21 @@ struct TimerView: View {
               HStack {
                 if self.isActivityButtonTapped {
                   Text(self.activityButtonState)
+                    .font(.custom(Pretendard.medium, size: 14))
                     .foregroundStyle(AppColor.white1)
                     .padding(.leading, 20)
                     .multilineTextAlignment(.trailing)
+                    .frame(height: 70)
                 }
-                Circle()
+
+                Image("logo-icon-color")
                   .frame(width: 70, height: 70)
-                  .foregroundStyle(AppColor.blue)
-                  .overlay {
-                    Image(.logoIcon)
-                  }
               }
               .background(AppColor.blue)
               .clipShape(RoundedRectangle(cornerRadius: 35))
               
             })
+            .disabled(self.isActivityButtonTapped)
           }
           
           

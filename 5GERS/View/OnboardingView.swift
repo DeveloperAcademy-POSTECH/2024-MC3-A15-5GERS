@@ -19,58 +19,62 @@ struct OnboardingView: View {
   }
   
   var body: some View {
-    VStack {
-      TabView(selection: $selectedTab,
-              content:  {
-        ForEach(Array(Onboarding.allCases.enumerated()), id: \.element) { index, onboarding in
-          OnboardingContentView(content: onboarding.value)
-            .tag(index)
-        }
-      })
-      .tabViewStyle(.page(indexDisplayMode: .always))
+    ZStack {
+      LinearGradient.background.ignoresSafeArea()
       
-      Spacer().frame(height: 30)
-      
-      Button(action: {
-        if selectedTab < Onboarding.allCases.count - 1 {
-          isDisableButton = true
-          withAnimation {
-            selectedTab += 1
+      VStack {
+        TabView(selection: $selectedTab,
+                content:  {
+          ForEach(Array(Onboarding.allCases.enumerated()), id: \.element) { index, onboarding in
+            OnboardingContentView(content: onboarding.value)
+              .tag(index)
           }
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            isDisableButton = false
-          }
-        } else {
-          self.isDisplayStartAlert = true
-        }
-      }, label: {
-        Text("다음")
-          .frame(width: 150, height: 50)
-          .background(AppColor.blue)
-          .foregroundStyle(AppColor.white1)
-          .font(.custom(Pretendard.semiBold, size: 18))
-          .clipShape(RoundedRectangle(cornerRadius: 15))
-      })
-      .disabled(isDisableButton)
-      
-      
-      Spacer().frame(height: 30)
-    }
-    .alert("'지금당장' 시작하기", isPresented: $isDisplayStartAlert, actions: {
-      Button(action: {
-        UserDefaults.standard.setValue(false, forKey: UserDefaultsKey.isOnboarding)
-      }, label: {
-        Text("시작")
-      })
-      Button(role: .cancel) {
+        })
+        .tabViewStyle(.page(indexDisplayMode: .always))
         
-      } label: {
-        Text("취소")
+        Spacer().frame(height: 30)
+        
+        Button(action: {
+          if selectedTab < Onboarding.allCases.count - 1 {
+            isDisableButton = true
+            withAnimation {
+              selectedTab += 1
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+              isDisableButton = false
+            }
+          } else {
+            self.isDisplayStartAlert = true
+          }
+        }, label: {
+          Text("다음")
+            .frame(width: 150, height: 50)
+            .background(AppColor.blue)
+            .foregroundStyle(AppColor.white1)
+            .font(.custom(Pretendard.semiBold, size: 18))
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+        })
+        .disabled(isDisableButton)
+        
+        
+        Spacer().frame(height: 30)
       }
+      .alert("'지금당장' 시작하기", isPresented: $isDisplayStartAlert, actions: {
+        Button(action: {
+          UserDefaults.standard.setValue(false, forKey: UserDefaultsKey.isOnboarding)
+        }, label: {
+          Text("시작")
+        })
+        Button(role: .cancel) {
+          
+        } label: {
+          Text("취소")
+        }
 
-    }, message: {
-      Text("'지금당장' 앱을 사용해 보시겠습니까?")
+      }, message: {
+        Text("'지금당장' 앱을 사용해 보시겠습니까?")
     })
+    }
     
     
   }
