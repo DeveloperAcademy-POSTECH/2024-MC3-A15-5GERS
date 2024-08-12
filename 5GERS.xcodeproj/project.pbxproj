@@ -55,6 +55,8 @@
 		577773882C5A64C5002D7370 /* ProductsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773872C5A64C5002D7370 /* ProductsEditView.swift */; };
 		5777738C2C5A8128002D7370 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5777738A2C5A80F5002D7370 /* Color.xcassets */; };
 		5777738D2C5A81F4002D7370 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577773822C5A5957002D7370 /* Array+Ext.swift */; };
+		57D273162C6A04FF00C52DA6 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D273152C6A04FF00C52DA6 /* BlurView.swift */; };
+		57D273192C6A055000C52DA6 /* InnerShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D273182C6A055000C52DA6 /* InnerShadowModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +127,8 @@
 		577773852C5A6457002D7370 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		577773872C5A64C5002D7370 /* ProductsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsEditView.swift; sourceTree = "<group>"; };
 		5777738A2C5A80F5002D7370 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		57D273152C6A04FF00C52DA6 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		57D273182C6A055000C52DA6 /* InnerShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerShadowModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,8 @@
 		571D390B2C57A95C00CA22E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				57D273172C6A054200C52DA6 /* Modifier */,
+				57D273142C6A04F200C52DA6 /* Component */,
 				5777735B2C58C548002D7370 /* HomeView.swift */,
 				5777735D2C59103E002D7370 /* SettingView.swift */,
 				571781692C5E5BC30088E0D3 /* HistoryView.swift */,
@@ -322,22 +328,38 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		5777737D2C5929A7002D7370 /* DesignConstant */ = {
+		5777737D2C5929A7002D7370 /* Design */ = {
 			isa = PBXGroup;
 			children = (
 				5777737B2C5927E3002D7370 /* Font.swift */,
 				5777737E2C5929B1002D7370 /* Color.swift */,
 			);
-			path = DesignConstant;
+			path = Design;
 			sourceTree = "<group>";
 		};
 		577773842C5A641B002D7370 /* Constant */ = {
 			isa = PBXGroup;
 			children = (
-				5777737D2C5929A7002D7370 /* DesignConstant */,
+				5777737D2C5929A7002D7370 /* Design */,
 				577773852C5A6457002D7370 /* UserDefaultsKey.swift */,
 			);
 			path = Constant;
+			sourceTree = "<group>";
+		};
+		57D273142C6A04F200C52DA6 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				57D273152C6A04FF00C52DA6 /* BlurView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		57D273172C6A054200C52DA6 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				57D273182C6A055000C52DA6 /* InnerShadowModifier.swift */,
+			);
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,6 +478,7 @@
 			files = (
 				5717816A2C5E5BC30088E0D3 /* HistoryView.swift in Sources */,
 				577773602C591044002D7370 /* TimerView.swift in Sources */,
+				57D273162C6A04FF00C52DA6 /* BlurView.swift in Sources */,
 				5777737F2C5929B1002D7370 /* Color.swift in Sources */,
 				571D39192C57AAAA00CA22E4 /* NotificationManager.swift in Sources */,
 				571781682C5DF8860088E0D3 /* LiveActivityDeleteIntent.swift in Sources */,
@@ -466,6 +489,7 @@
 				577773562C587F95002D7370 /* Outing+SwiftData.swift in Sources */,
 				571D39102C57A9DB00CA22E4 /* Date+Ext.swift in Sources */,
 				5777735E2C59103E002D7370 /* SettingView.swift in Sources */,
+				57D273192C6A055000C52DA6 /* InnerShadowModifier.swift in Sources */,
 				5777737C2C5927E3002D7370 /* Font.swift in Sources */,
 				571D39142C57AA6F00CA22E4 /* TimeIntent.swift in Sources */,
 				571D391B2C57AAB000CA22E4 /* LiveActivityManager.swift in Sources */,

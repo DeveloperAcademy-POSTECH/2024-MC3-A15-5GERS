@@ -50,6 +50,7 @@ struct TimerView: View {
             }, label: {
               Text("취소")
                 .foregroundStyle(AppColor.red)
+                .font(.custom(Pretendard.regular, size: 20))
             })
             Spacer()
             Button(action: {
@@ -58,11 +59,11 @@ struct TimerView: View {
               Image(systemName: "info.circle")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 20, height: 20)
+                .frame(width: 25, height: 25)
                 .foregroundStyle(AppColor.blue)
             })
           }
-          .padding(.vertical, 5)
+          .padding(.vertical, 10)
           
           HStack(spacing: 0) {
             Text("\(outing.time.koreanTime)")
@@ -196,10 +197,13 @@ struct TimerView: View {
     }
     .sheet(isPresented: $isPresentedInfoView, content: {
       InformationView()
+        .presentationDetents([.fraction(0.7)])
     })
   }
 }
 
+
+// MARK: - CircularProgressView
 fileprivate struct CircularProgressView: View {
   
   @Binding private var remainTimerDegreeValue: Double
@@ -332,6 +336,8 @@ fileprivate struct CircularProgressView: View {
   }
 }
 
+
+// MARK: - InformationView
 fileprivate struct InformationView: View {
   
   fileprivate var body: some View {
@@ -344,28 +350,45 @@ fileprivate struct InformationView: View {
           Text("사용설명서")
             .font(AppFont.title1)
           
-          VStack(alignment: .leading) {
-            Text("1. 시리와 함께 준비해요.")
-            Spacer().frame(height: 10)
-            Text("\"시리야, [지금당장] 남은 외출시간 알려줘.\"\n시리를 부르고 궁금한 것을 물어본 다음 '지금당장'을 불러주세요. 휴대폰을 만지지 않아도 '지금당장'이 알려드릴게요")
-            
-            Spacer().frame(height: 20)
-            Text("현재 확인 가능한 서비스")
-            Text(" - 외출시간까지 남은 시간 확인")
-            Text(" - 기입해 둔 소지품 확인")
+          Spacer().frame(height: 50)
+          
+          
+          Text("1. 시리와 함께 준비해요.")
+            .foregroundStyle(AppColor.blue)
+            .font(AppFont.title2)
+          
+          Spacer().frame(height: 10)
+          Text("\"시리야, [지금당장] 남은 외출시간 알려줘.\"\n시리를 부르고 궁금한 것을 물어본 다음 '지금당장'을 불러주세요. 휴대폰을 만지지 않아도 '지금당장'이 알려드릴게요")
+            .foregroundStyle(AppColor.gray4)
+            .font(.custom(Pretendard.medium, size: 15))
+            .lineSpacing(5)
+          
+          Spacer().frame(height: 20)
+          
+          VStack(alignment: .leading, spacing: 5) {
+            Group {
+              Text("현재 확인 가능한 서비스")
+              Text(" - 외출시간까지 남은 시간 확인")
+              Text(" - 기입해 둔 소지품 확인")
+            }
+            .font(.custom(Pretendard.semiBold, size: 15))
+            .foregroundStyle(AppColor.gray5)
           }
-          .font(AppFont.body2)
-          .foregroundStyle(AppColor.gray5)
-          .padding(.top, 20)
-            
-          VStack(alignment: .leading) {
-            Text("2. 실시간 준비 체크하기")
-            Spacer().frame(height: 10)
-            Text("아래 버튼을 눌러 잠금화면에서도 실시간으로 남은 시간과 소지품을 확인할 수 있어요.")
-          }
-          .font(AppFont.body2)
-          .foregroundStyle(AppColor.gray5)
-          .padding(.top, 20)
+          
+          Spacer().frame(height: 20)
+          
+          Text("2. 실시간 준비 체크하기")
+            .foregroundStyle(AppColor.blue)
+            .font(AppFont.title2)
+          
+          Spacer().frame(height: 10)
+          
+          Text("아래 버튼을 눌러 잠금화면에서도 실시간으로 남은 시간과 소지품을 확인할 수 있어요.")
+            .foregroundStyle(AppColor.gray4)
+            .font(.custom(Pretendard.medium, size: 15))
+            .lineSpacing(5)
+          
+          Spacer().frame(height: 20)
           
           Image("logo-icon-color")
             .resizable()
@@ -379,29 +402,6 @@ fileprivate struct InformationView: View {
       .padding(20)
     }
   }
-}
-
-fileprivate struct BlurView: UIViewRepresentable {
-  var style: UIBlurEffect.Style
-  
-  func makeUIView(context: Context) -> some UIView {
-    let view = UIView(frame: .zero)
-    view.backgroundColor = .clear
-    
-    let blurEffect = UIBlurEffect(style: style)
-    let blurView = UIVisualEffectView(effect: blurEffect)
-    blurView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(blurView)
-    
-    NSLayoutConstraint.activate([
-      blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
-      blurView.widthAnchor.constraint(equalTo: view.widthAnchor)
-    ])
-    
-    return view
-  }
-  
-  func updateUIView(_ uiView: UIViewType, context: Context) {}
 }
 
 
@@ -429,7 +429,7 @@ extension TimerView {
         try? LiveActivityManager.shared.startActivity(outing)
         NotificationManager.shared.removeLiveActivityNotification()
         
-        self.activityButtonState = "실시간 현황을 활성화 하였습니다."
+        self.activityButtonState = "실시간 현황을 활성화 하였습니다.\n잠금화면에서 바로 확인해 보세요."
       } else {
         self.activityButtonState = "이미 실시간 현황을 활성화 하였습니다."
       }
@@ -437,21 +437,8 @@ extension TimerView {
   }
 }
 
-struct InnerShadowModifier: ViewModifier {
-  var radius: CGFloat
-  
-  func body(content:Content) -> some View {
-    content
-      .overlay(
-        RoundedRectangle(cornerRadius: radius)
-          .stroke(AppColor.white1, lineWidth :1)
-          .shadow(color: AppColor.dark, radius: 8, x: 7, y: 7)
-          .shadow(color: AppColor.white1, radius : 8, x: -7, y: -7)
-      )
-  }
-}
 
 #Preview {
-      TimerView(outing: .constant(.init(time: .now, products: [])))
-//  InformationView()
+  TimerView(outing: .constant(.init(time: .now, products: [])))
+  //  InformationView()
 }

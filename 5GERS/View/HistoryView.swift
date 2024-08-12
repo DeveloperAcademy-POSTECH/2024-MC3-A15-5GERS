@@ -105,11 +105,6 @@ struct HistoryView : View {
             }
             
         }
-        .onAppear {
-            let datas = outings.sorted { $0.time.totalMinutes < $1.time.totalMinutes }
-            datas.forEach { print($0.time) }
-            
-        }
     }
 }
 

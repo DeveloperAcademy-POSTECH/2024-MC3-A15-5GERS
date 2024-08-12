@@ -76,7 +76,7 @@ extension Date {
     var totalMinutes: Int {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: self)
-        return components.hour! * components.minute!
+        return (components.hour! * 60) + components.minute!
     }
     
     func convertToRemainingTime(from date: Date) -> String {
