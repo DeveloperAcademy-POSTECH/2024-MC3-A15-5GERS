@@ -28,6 +28,12 @@ struct SettingView: View {
       LinearGradient.background.ignoresSafeArea()
       VStack {
         HStack {
+          Button(action: {
+            UserDefaults.standard.setValue(true, forKey: UserDefaultsKey.isOnboarding)
+          }, label: {
+            Text("Reset to Onboarding")
+              .foregroundStyle(.clear)
+          })
           Spacer()
           Button {
             self.isPresentedHistoryView = true

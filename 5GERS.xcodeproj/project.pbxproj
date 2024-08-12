@@ -298,9 +298,9 @@
 		571D391C2C57AABD00CA22E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				57D273292C6A34C300C52DA6 /* Onboarding.swift */,
 				571D391D2C57AAD000CA22E4 /* Outing.swift */,
 				577773552C587F95002D7370 /* Outing+SwiftData.swift */,
-				57D273292C6A34C300C52DA6 /* Onboarding.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

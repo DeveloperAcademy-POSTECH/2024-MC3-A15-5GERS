@@ -10,4 +10,5 @@ import Foundation
 struct UserDefaultsKey {
     static let isTodayAfter = "isTodayAfter"
     static let outing = "outing"
+  static let isOnboarding = "isOnboarding"
 }

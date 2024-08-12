@@ -10,6 +10,8 @@ import SwiftUI
 struct OnboardingView: View {
   
   @State private var selectedTab: Int = 0
+  @State private var isDisplayStartAlert: Bool = false
+  @State private var isDisableButton: Bool = false
   
   init() {
     UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(resource: .blueMain)
@@ -31,25 +33,44 @@ struct OnboardingView: View {
       
       Button(action: {
         if selectedTab < Onboarding.allCases.count - 1 {
+          isDisableButton = true
           withAnimation {
             selectedTab += 1
           }
-          
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            isDisableButton = false
+          }
         } else {
-          print("End")
+          self.isDisplayStartAlert = true
         }
       }, label: {
-        Text(selectedTab != (Onboarding.allCases.count - 1) ? "다음" : "시작하기")
+        Text("다음")
           .frame(width: 150, height: 50)
           .background(AppColor.blue)
           .foregroundStyle(AppColor.white1)
           .font(.custom(Pretendard.semiBold, size: 18))
           .clipShape(RoundedRectangle(cornerRadius: 15))
       })
+      .disabled(isDisableButton)
       
       
       Spacer().frame(height: 30)
     }
+    .alert("'지금당장' 시작하기", isPresented: $isDisplayStartAlert, actions: {
+      Button(action: {
+        UserDefaults.standard.setValue(false, forKey: UserDefaultsKey.isOnboarding)
+      }, label: {
+        Text("시작")
+      })
+      Button(role: .cancel) {
+        
+      } label: {
+        Text("취소")
+      }
+
+    }, message: {
+      Text("'지금당장' 앱을 사용해 보시겠습니까?")
+    })
     
     
   }
